@@ -185,7 +185,7 @@ const GAME_CATEGORIES = [
       {
         id: "labyrinth-jaeger",
         name: "Labyrinth-Jäger",
-        icon: "🟡",
+        icon: "🟡👻",
         available: false,
         url: null,
         howToPlay:

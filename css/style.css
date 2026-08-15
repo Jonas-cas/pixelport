@@ -174,12 +174,21 @@ a.tile:active {
 }
 
 .tile-icon {
-  font-size: 2rem;
+  font-size: 3rem;
+  line-height: 1;
+  filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.25));
+  transition: transform 0.2s ease;
+}
+
+a.tile:hover .tile-icon,
+a.tile:focus-visible .tile-icon {
+  transform: scale(1.15) rotate(-4deg);
 }
 
 .tile-title {
   margin: 0;
   font-size: 1.1rem;
+  font-weight: 800;
 }
 
 .tile-desc {
@@ -222,26 +231,13 @@ a.tile:active {
 
 /* ---- Verspielte Kacheln für helle Kategorien (Brettspiele, Kartenspiele) ----
    Aktiviert via js/category.js, wenn die Kategorie theme:"light" trägt
-   (games-data.js). Größere "Maskottchen"-Icons statt kleiner Symbole,
-   dickerer, farbiger Rahmen - passend zum Look der Spiel-Bildschirme
-   selbst (css/game-theme-light.css). */
+   (games-data.js). Die große Icon-Darstellung mit Schatten/Hover-Effekt
+   ist inzwischen Basis-Verhalten für ALLE Kacheln (siehe .tile-icon oben) -
+   hier bleibt nur noch der etwas dickere, rundere Rahmen, passend zum
+   Look der Spiel-Bildschirme selbst (css/game-theme-light.css). */
 .tile-grid--playful .tile {
   border-width: 2.5px;
   border-radius: 20px;
-}
-
-.tile-grid--playful .tile-icon {
-  font-size: 3.2rem;
-  filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.22));
-  transition: transform 0.2s ease;
-}
-
-.tile-grid--playful a.tile:hover .tile-icon {
-  transform: scale(1.15) rotate(-4deg);
-}
-
-.tile-grid--playful a.tile:hover {
-  border-color: var(--accent);
 }
 
 .game-tile--soon .badge {

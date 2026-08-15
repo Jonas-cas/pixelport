@@ -1,111 +1,135 @@
 /**
  * game-theme-light.css
  *
- * Optionaler heller, farbenfroher Skin für Brett- und Kartenspiele
- * (aktuell Schach, Mau Mau - künftig z.B. Vier Gewinnt, Tic-Tac-Toe,
- * Dame, Solitaire). Aktiviert durch das Attribut data-game-theme="light"
- * auf <body>, UNABHÄNGIG vom Dark-/Bright-Mode-Setting - so wie ein
- * echtes Brett oder Kartendeck auch keinen eigenen Dark Mode hat.
+ * Kräftiger, verspielter Skin für Brett- und Kartenspiele (aktuell
+ * Schach, Mau Mau, Vier Gewinnt, Tic-Tac-Toe - künftig z.B. Dame,
+ * Solitaire). Aktiviert durch das Attribut data-game-theme="light" auf
+ * <body>.
  *
- * Retro-Arcade-Spiele (Pong, Breakout, Tron-Duell, ...) binden diese
- * Datei NICHT ein und bleiben unverändert beim dunklen CRT-Look.
+ * WICHTIG: Das betrifft NUR die eigentlichen Spiel-Elemente (Vorbild-
+ * schirm, Spielfläche/Panel, Ergebnis-Bildschirm, Buttons, Howto-
+ * Overlay) - NICHT den App-Rahmen (Header, Footer, Seitenhintergrund,
+ * Zurück-Link, Einstellungen-Button). Der App-Rahmen folgt weiterhin
+ * ganz normal der globalen Dark-/Bright-Mode-Einstellung aus den
+ * Settings, wie auf jeder anderen Seite auch - dieses Stylesheet
+ * überschreibt data-mode nirgendwo. Nur das Spiel selbst (das "Brett"
+ * bzw. "Kartendeck") hat eine eigene, feste, helle Optik, unabhängig
+ * vom Modus - so wie ein echtes Brett auch keinen Dark Mode hat.
+ *
+ * Retro-Arcade-Spiele (Pong, Breakout, Tron-Duell, Snake, Tetris, ...)
+ * binden diese Datei NICHT ein und bleiben unverändert beim dunklen
+ * CRT-Look.
  *
  * Die Design-Theme-Akzentfarbe (Neon/Ocean/Sunset/Forest aus den
- * Settings) bleibt aktiv - nur der Dark-/Bright-Mode-Hintergrund wird
- * hier durch feste, warme Töne ersetzt.
+ * Settings) bleibt aktiv und bestimmt Rahmen/Buttons/Highlights.
  *
  * Neues helles Spiel anbinden:
  *   1. <body data-game-theme="light"> setzen
  *   2. Dieses Stylesheet zusätzlich zu css/game-screens.css einbinden
  *      (nach game-screens.css, vor dem spielspezifischen CSS)
  *   3. Für Punktestand/Status die Klasse "status-pill" verwenden
+ *   4. Für die Spielfläche (#play-screen) zusätzlich die Klasse
+ *      "game-play-panel" setzen - liefert das gemeinsame Panel-Aussehen
+ *      (Rahmen, Ecken, Schatten), siehe games/chess/index.html
  */
 
-body[data-game-theme="light"] {
-  background: #fdf7ea;
-  color: #2c2a24;
-}
-
-body[data-game-theme="light"] .site-header,
-body[data-game-theme="light"] .site-footer {
-  background: #fdf7ea;
-  border-color: rgba(0, 0, 0, 0.08);
-}
-
-body[data-game-theme="light"] .back-link {
-  color: #78705f;
-}
-
-body[data-game-theme="light"] .back-link:hover {
-  color: var(--accent);
-}
-
-body[data-game-theme="light"] .icon-button {
-  background: #ffffff;
-  border-color: rgba(0, 0, 0, 0.12);
-  color: #2c2a24;
-}
-
-body[data-game-theme="light"] .icon-button:hover {
-  background: #fff8ea;
-}
-
-body[data-game-theme="light"] .page-intro h1,
-body[data-game-theme="light"] .page-intro p {
-  color: #2c2a24;
-}
-
-/* ---- Setup-/Ergebnis-Bildschirm (js/game-screens.js) ---- */
+/* ---- Vorbildschirm / Ergebnis-Bildschirm (js/game-screens.js) ---- */
 
 body[data-game-theme="light"] .game-setup,
-body[data-game-theme="light"] .game-result {
+body[data-game-theme="light"] .game-result,
+body[data-game-theme="light"] .game-play-panel {
   background: #ffffff;
-  border-color: rgba(0, 0, 0, 0.08);
-  border-top: 5px solid var(--accent);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+  border: 4px solid var(--accent);
+  border-radius: 28px;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.08), 0 18px 34px rgba(0, 0, 0, 0.16);
+}
+
+body[data-game-theme="light"] .game-play-panel {
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 28px 22px 32px;
 }
 
 body[data-game-theme="light"] .game-setup__title,
 body[data-game-theme="light"] .game-result__title {
   color: #2c2a24;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 body[data-game-theme="light"] .game-setup__intro,
 body[data-game-theme="light"] .game-result__message,
 body[data-game-theme="light"] .game-option-group__title {
-  color: #78705f;
+  color: #6b6355;
+  font-weight: 600;
 }
 
 body[data-game-theme="light"] .option-button {
-  background: #fbf5e7;
-  border-color: rgba(0, 0, 0, 0.1);
+  background: #fff;
+  border: 2.5px solid #e7ddc8;
+  border-radius: 14px;
   color: #2c2a24;
+  font-weight: 800;
+  padding: 12px 18px;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+body[data-game-theme="light"] .option-button:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
 }
 
 body[data-game-theme="light"] .option-button.is-active {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 70%, black);
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--accent) 70%, black);
+}
+
+body[data-game-theme="light"] .game-setup__start {
+  padding: 14px 32px;
+  border-radius: 16px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  box-shadow: 0 5px 0 color-mix(in srgb, var(--accent) 55%, black), 0 10px 18px rgba(0, 0, 0, 0.2);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.15s ease;
+}
+
+body[data-game-theme="light"] .game-setup__start:hover {
+  filter: brightness(1.05);
+  transform: translateY(-2px);
+}
+
+body[data-game-theme="light"] .game-setup__start:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--accent) 55%, black), 0 4px 10px rgba(0, 0, 0, 0.18);
 }
 
 body[data-game-theme="light"] .howto-button {
-  background: #fbf5e7;
-  border-color: rgba(0, 0, 0, 0.1);
-  color: #78705f;
+  background: #fff;
+  border: 2.5px solid #e7ddc8;
+  border-radius: 999px;
+  color: #6b6355;
+  font-weight: 800;
+  padding: 8px 16px;
 }
 
 body[data-game-theme="light"] .howto-button:hover {
   border-color: var(--accent);
   color: var(--accent);
+  transform: translateY(-2px);
 }
 
 body[data-game-theme="light"] .game-hint {
   color: #8a8171;
+  font-weight: 600;
 }
 
 body[data-game-theme="light"] .game-hint kbd {
-  background: #fbf5e7;
-  border-color: rgba(0, 0, 0, 0.12);
+  background: #fff;
+  border-color: #e7ddc8;
   color: #2c2a24;
 }
 
@@ -115,35 +139,49 @@ body[data-game-theme="light"] .game-hud {
 }
 
 body[data-game-theme="light"] .game-hud__divider {
-  color: #a89f8c;
+  color: #cbbfa0;
 }
 
 /* ---- "Wie spiele ich das?"-Overlay ---- */
 
 body[data-game-theme="light"] .pp-modal__box {
-  background: #fffdf7;
-  border-color: rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  border: 4px solid var(--accent);
+  border-radius: 24px;
   color: #2c2a24;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+}
+
+body[data-game-theme="light"] .pp-modal__title {
+  font-weight: 800;
 }
 
 body[data-game-theme="light"] .pp-modal__text {
   color: #6b6355;
+  font-weight: 500;
 }
 
 body[data-game-theme="light"] .pp-modal__close {
-  background: #fbf5e7;
-  border-color: rgba(0, 0, 0, 0.1);
+  background: #fff;
+  border: 2px solid #e7ddc8;
   color: #2c2a24;
+}
+
+body[data-game-theme="light"] .pp-modal__close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* ---- Wiederverwendbare, bunte Status-/Punktestand-Pille ---- */
 .status-pill {
   display: inline-block;
   align-self: center;
-  padding: 8px 22px;
+  padding: 10px 26px;
   border-radius: 999px;
   background: var(--accent-gradient);
   color: #fff;
-  font-weight: 700;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  font-weight: 800;
+  font-size: 1.05rem;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15), 0 8px 16px rgba(0, 0, 0, 0.2);
 }

@@ -1,0 +1,199 @@
+/**
+ * mau-mau.css
+ *
+ * Spielspezifische Styles für Mau Mau. Layout/Setup/Ergebnis-Bildschirm
+ * kommen bereits aus css/game-screens.css - hier steht die Karten- und
+ * Tisch-Darstellung (kein Canvas, reines HTML/CSS).
+ */
+
+.mm-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+/* ---- Gegner-Anzeige ---- */
+.mm-opponents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.mm-opponent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.mm-opponent.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.mm-opponent-name {
+  font-weight: 600;
+}
+
+.mm-opponent-count {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* ---- Karten ---- */
+.mm-card {
+  width: 62px;
+  height: 88px;
+  border-radius: 8px;
+  background: #f8f5ec;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.15rem;
+  line-height: 1.1;
+  color: #1a1a24;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.mm-card--red {
+  color: #c0263a;
+}
+
+.mm-card--black {
+  color: #1a1a24;
+}
+
+.mm-card--back {
+  background: var(--accent-gradient);
+}
+
+/* ---- Nachzieh-/Ablagestapel ---- */
+.mm-center {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.mm-pile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.mm-pile-count {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+#mm-draw-pile.is-active {
+  cursor: pointer;
+  box-shadow: 0 0 0 3px var(--accent), 0 6px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.15s ease;
+}
+
+#mm-draw-pile.is-active:hover {
+  transform: translateY(-3px);
+}
+
+.mm-wish-badge {
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ---- Status & Farbwunsch ---- */
+.mm-status {
+  font-weight: 600;
+  min-height: 1.4em;
+  text-align: center;
+}
+
+.mm-suit-picker {
+  display: flex;
+  gap: 10px;
+}
+
+.mm-suit-button {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  font-size: 1.5rem;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+}
+
+.mm-suit-button:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateY(-2px);
+}
+
+.mm-suit-button--red {
+  color: #c0263a;
+}
+
+.mm-suit-button--black {
+  color: #1a1a24;
+}
+
+/* ---- Hand des Menschen ---- */
+.mm-hand {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-height: 96px;
+  width: 100%;
+}
+
+.mm-hand .mm-card {
+  cursor: default;
+  opacity: 0.5;
+  filter: grayscale(40%);
+  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mm-hand .mm-card.is-playable {
+  cursor: pointer;
+  opacity: 1;
+  filter: none;
+}
+
+.mm-hand .mm-card.is-playable:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 0 2px var(--accent);
+}
+
+@media (max-width: 480px) {
+  .mm-card {
+    width: 50px;
+    height: 72px;
+    font-size: 0.95rem;
+  }
+
+  .mm-center {
+    gap: 24px;
+  }
+}

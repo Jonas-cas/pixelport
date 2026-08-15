@@ -142,6 +142,15 @@ const GAME_CATEGORIES = [
     description: "Klassische Kartenspiele für zwischendurch.",
     games: [
       {
+        id: "mau-mau",
+        name: "Mau Mau",
+        icon: "🃏",
+        available: true,
+        url: "games/mau-mau/index.html",
+        howToPlay:
+          "Reihum legt ihr eine Karte, die zur Farbe oder zum Wert der obersten Karte passt. Eine 7 zwingt den nächsten Spieler, 2 Karten zu ziehen (mehrere 7en hintereinander addieren sich), eine 8 lässt den nächsten Spieler aussetzen, und ein Bube erlaubt es, eine neue Farbe zu wünschen. Kannst du keine passende Karte legen, musst du eine Karte ziehen. Wer zuerst alle Karten losgeworden ist, gewinnt.",
+      },
+      {
         id: "solitaire",
         name: "Solitaire",
         icon: "🂡",

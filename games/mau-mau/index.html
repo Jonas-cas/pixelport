@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mau Mau – PixelPort</title>
+
+  <script src="../../js/theme.js"></script>
+
+  <link rel="stylesheet" href="../../css/themes.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/game-screens.css" />
+  <link rel="stylesheet" href="mau-mau.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="../../category.html?id=kartenspiele">← Kartenspiele</a>
+    <a class="icon-button" href="../../settings.html" aria-label="Einstellungen" title="Einstellungen">⚙️</a>
+  </header>
+
+  <main class="page game-page">
+    <section class="page-intro">
+      <h1>🃏 Mau Mau</h1>
+    </section>
+
+    <div class="game-root">
+      <!-- Vorbildschirm: Schwierigkeit + Anzahl Bots, wird von game-screens.js befüllt -->
+      <section id="setup-screen" class="game-screen"></section>
+
+      <!-- Eigentliches Spiel -->
+      <section id="play-screen" class="game-screen mm-table" hidden>
+        <div id="mm-opponents" class="mm-opponents"></div>
+
+        <div class="mm-center">
+          <div class="mm-pile">
+            <div id="mm-draw-pile" class="mm-card mm-card--back"></div>
+            <span id="mm-draw-count" class="mm-pile-count">0</span>
+          </div>
+          <div class="mm-pile">
+            <div id="mm-discard-card" class="mm-card"></div>
+            <span id="mm-wish-badge" class="mm-wish-badge" hidden></span>
+          </div>
+        </div>
+
+        <p id="mm-status" class="mm-status"></p>
+        <div id="mm-suit-picker" class="mm-suit-picker" hidden></div>
+        <div id="mm-hand" class="mm-hand"></div>
+      </section>
+
+      <!-- Ergebnis-Bildschirm, wird von game-screens.js befüllt -->
+      <section id="result-screen" class="game-screen" hidden></section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <a class="back-link" href="../../category.html?id=kartenspiele">← Zurück zu Kartenspiele</a>
+  </footer>
+
+  <script src="../../js/game-screens.js"></script>
+  <script src="mau-mau.js"></script>
+</body>
+</html>

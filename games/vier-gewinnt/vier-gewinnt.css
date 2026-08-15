@@ -3,10 +3,9 @@
  *
  * Spielspezifische Styles für Vier Gewinnt. Panel/Setup/Ergebnis kommen
  * bereits aus css/game-screens.css + css/game-theme-light.css - hier
- * steht nur das Spielbrett. Die Scheiben bleiben bewusst klassisch
- * Rot/Gelb (nicht themeabhängig) für sofortige Wiedererkennbarkeit,
- * der Brett-"Kunststoff"-Rahmen färbt sich dagegen mit der aktuellen
- * Design-Theme-Akzentfarbe.
+ * steht nur das Spielbrett. Scheiben (Rot/Gelb) und der blaue
+ * Kunststoff-Rahmen sind bewusst fest (nicht themeabhängig) - das
+ * Original-Spiel hat schließlich auch immer denselben blauen Rahmen.
  */
 
 .c4-play {
@@ -20,9 +19,9 @@
   display: flex;
   gap: 8px;
   padding: 16px;
-  background: var(--accent);
+  background: #1a56db;
   border-radius: 20px;
-  box-shadow: 0 8px 0 color-mix(in srgb, var(--accent) 60%, black), 0 16px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 0 color-mix(in srgb, #1a56db 60%, black), 0 16px 30px rgba(0, 0, 0, 0.25);
 }
 
 .c4-column {

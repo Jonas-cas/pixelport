@@ -5,12 +5,13 @@
  * der helle Seiten-Skin kommen bereits aus css/game-screens.css und
  * css/game-theme-light.css - hier steht nur das Brett selbst.
  *
- * Die Feldfarben sind bewusst fest (nicht themeabhängig für das Creme-
- * Grundton), die dunklen Felder mischen sich aber kräftig aus der
- * aktuell gewählten Design-Theme-Akzentfarbe (color-mix) - so bleibt
- * das Brett unabhängig vom Theme "als Schachbrett" erkennbar, wirkt
- * aber je nach gewähltem Theme (Neon/Ocean/Sunset/Forest) satt-bunt
- * statt dunkel-gedeckt wie ein klassisches Holzbrett.
+ * Brett und Figuren sind bewusst fest in klassischen Schachfarben
+ * (Beige/Creme + Braun/Holzoptik, Figuren Elfenbein/Ebenholz) statt in
+ * der Design-Theme-Akzentfarbe eingefärbt - ein Schachbrett soll wie ein
+ * Schachbrett aussehen, unabhängig vom gewählten Farbthema. Die
+ * Design-Theme-Akzentfarbe kommt weiterhin bei reiner UI-Interaktion
+ * durch (Auswahl-Ring, Zielfeld-Punkt) - das ist Bedienungs-Feedback,
+ * kein Teil des Bretts selbst.
  *
  * Panel-Hintergrund/Rahmen/Schatten von #play-screen kommen von der
  * gemeinsamen .game-play-panel-Klasse (css/game-theme-light.css) -
@@ -31,7 +32,7 @@
   width: 100%;
   max-width: 480px;
   aspect-ratio: 1;
-  border: 4px solid var(--accent);
+  border: 4px solid #6b4226;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
@@ -45,11 +46,11 @@
 }
 
 .chess-square--light {
-  background: #fdf6ea;
+  background: #f0d9b5;
 }
 
 .chess-square--dark {
-  background: color-mix(in srgb, var(--accent) 82%, white);
+  background: #b58863;
 }
 
 .chess-square.is-clickable {
@@ -93,14 +94,14 @@
   filter: drop-shadow(0 3px 1px rgba(0, 0, 0, 0.3));
 }
 
-/* "Weiß" und "Schwarz" in kräftigen, freundlichen Farben statt echtem
-   Schwarz/Weiß - liest sich weiterhin klar als zwei Teams. */
+/* Klassische Elfenbein-/Ebenholz-Optik statt Theme-Farben - echte
+   Schachfiguren sind schließlich auch nicht lila. */
 .chess-piece--white {
   color: #fffdf6;
   -webkit-text-stroke: 1.8px #d99a3d;
 }
 
 .chess-piece--black {
-  color: #4c1d95;
+  color: #2a231d;
   -webkit-text-stroke: 1.4px #fffdf6;
 }

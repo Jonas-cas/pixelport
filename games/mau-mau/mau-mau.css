@@ -114,8 +114,10 @@
 }
 
 .mm-card--back {
-  background: var(--accent-gradient);
-  border-color: rgba(0, 0, 0, 0.15);
+  /* Klassisches Rautenmuster in Kartenrot statt Theme-Farbverlauf - eine
+     Skatkarten-Rückseite sieht schließlich immer gleich aus. */
+  background: repeating-linear-gradient(45deg, #7a1f2b, #7a1f2b 6px, #611722 6px, #611722 12px);
+  border-color: rgba(0, 0, 0, 0.25);
 }
 
 /* ---- Nachzieh-/Ablagestapel ---- */

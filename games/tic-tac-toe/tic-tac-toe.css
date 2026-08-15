@@ -3,9 +3,9 @@
  *
  * Spielspezifische Styles für Tic-Tac-Toe. Panel/Setup/Ergebnis kommen
  * bereits aus css/game-screens.css + css/game-theme-light.css - hier
- * steht nur das Spielfeld. X und O nutzen die beiden Akzentfarben des
- * aktuellen Design-Themes (kräftig, aber immer als "zwei Teams" klar
- * unterscheidbar).
+ * steht nur das Spielfeld. X und O sind bewusst fest in zwei klar
+ * unterscheidbaren Farben (Rot/Blau) statt in den Design-Theme-
+ * Akzentfarben - klassisches X/O-Design, unabhängig vom Farbthema.
  */
 
 .ttt-play {
@@ -48,11 +48,11 @@
 }
 
 .ttt-cell--x {
-  color: var(--accent);
+  color: #e5484d;
 }
 
 .ttt-cell--o {
-  color: var(--accent-2);
+  color: #2f6fed;
 }
 
 .ttt-cell.is-winning {

@@ -3,9 +3,9 @@
  *
  * Spielspezifische Styles für Dame. Panel/Setup/Ergebnis kommen bereits
  * aus css/game-screens.css + css/game-theme-light.css - hier steht nur
- * das Brett. Die Steine bleiben klassisch Rot/Dunkel (wie ein echtes
- * Dame-Set), das Brett selbst mischt sich aus der aktuellen Design-
- * Theme-Akzentfarbe (wie beim Schachbrett).
+ * das Brett. Brett und Steine sind bewusst fest in klassischen
+ * Dame-Farben (Beige/Braun wie beim Schachbrett, Steine Creme/Rot) statt
+ * in der Design-Theme-Akzentfarbe eingefärbt.
  */
 
 .dame-play {
@@ -22,7 +22,7 @@
   width: 100%;
   max-width: 480px;
   aspect-ratio: 1;
-  border: 4px solid var(--accent);
+  border: 4px solid #6b4226;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
@@ -36,11 +36,11 @@
 }
 
 .dame-square--light {
-  background: #fdf6ea;
+  background: #f0d9b5;
 }
 
 .dame-square--dark {
-  background: color-mix(in srgb, var(--accent) 82%, white);
+  background: #b58863;
 }
 
 .dame-square.is-clickable {

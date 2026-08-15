@@ -136,17 +136,23 @@
 }
 
 .uno-card--back {
-  background: var(--accent-gradient);
+  /* Echte Uno-Karten haben eine feste schwarze Rückseite mit rotem
+     "UNO"-Schriftzug - fest statt themeabhängig, wie der Rest des Decks. */
+  background: #1c1c1e;
   border-color: rgba(255, 255, 255, 0.6);
 }
 
 .uno-card--back::after {
   content: "UNO";
-  color: #fff;
+  color: var(--uno-red);
+  background: #fff;
+  padding: 3px 8px;
+  border-radius: 999px;
+  transform: rotate(-18deg);
   font-weight: 900;
-  font-size: 0.85rem;
-  letter-spacing: 0.03em;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
 }
 
 /* ---- Nachzieh-/Ablagestapel ---- */

@@ -194,7 +194,10 @@
         (value ? " ttt-cell--" + value : "") +
         (isWinning ? " is-winning" : "") +
         (clickable && !value ? " is-clickable" : "");
-      cell.textContent = value ? (value === "x" ? "❌" : "⭕") : "";
+      // Bewusst reiner Text statt Emoji (❌/⭕): Emoji-Glyphen bringen ihre
+      // eigene feste Farbe mit und ignorieren die CSS-Farbe der Zelle -
+      // damit X und O wirklich in den vorgesehenen Farben erscheinen.
+      cell.textContent = value ? value.toUpperCase() : "";
       if (clickable && !value) cell.addEventListener("click", () => handleCellClick(index));
       boardEl.appendChild(cell);
     });

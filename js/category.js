@@ -4,7 +4,9 @@
  * Logik für die Kategorie-Seite: liest die Kategorie-ID aus der URL
  * (?id=...), sucht sie in GAME_CATEGORIES und rendert die zugehörigen
  * Spiele als Kacheln in #games-grid. Spiele ohne url/available gelten
- * als Platzhalter ("Bald verfügbar").
+ * als Platzhalter ("Bald verfügbar"). Trägt ein Spiel ein howToPlay ein,
+ * bekommt seine Kachel zusätzlich einen "❓ Wie spiele ich das?"-Button
+ * (siehe js/game-screens.js), egal ob spielbar oder Platzhalter.
  */
 
 (function () {
@@ -36,6 +38,11 @@
     badge.textContent = isAvailable ? "Spielen" : "Bald verfügbar";
 
     el.append(icon, title, badge);
+
+    if (game.howToPlay) {
+      PixelPortGameScreens.renderHowToPlayButton(el, { gameName: game.name, text: game.howToPlay });
+    }
+
     return el;
   }
 

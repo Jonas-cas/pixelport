@@ -15,6 +15,9 @@
   const CATEGORY_URL = "../../category.html?id=spiele-1990";
   const WINNING_SCORE = 10;
 
+  const HOW_TO_PLAY =
+    "Zwei Schläger, einer links und einer rechts, bewegen sich rauf und runter. Ihr müsst den Ball mit eurem Schläger zurückschlagen, bevor er hinter euch vorbeifliegt. Verfehlt ihr den Ball, bekommt der Gegner einen Punkt. Wer zuerst 10 Punkte erreicht, gewinnt.";
+
   const MODES = [
     { id: "2p", label: "2 Spieler", description: "Beide Schläger werden von Menschen gesteuert." },
     { id: "bot", label: "Gegen Bot", description: "Der rechte Schläger wird von einer KI gesteuert." },
@@ -277,6 +280,7 @@
     PixelPortGameScreens.renderSetup(setupScreen, {
       gameName: "Pong",
       intro: "Wähle Schwierigkeit und Spielmodus, um zu starten.",
+      howToPlay: HOW_TO_PLAY,
       modes: MODES,
       defaultDifficultyId: 3,
       defaultModeId: "2p",

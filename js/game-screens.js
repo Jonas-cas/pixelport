@@ -21,6 +21,12 @@
  *     Rendert den Ergebnis-Bildschirm nach Spielende mit "Neu starten"
  *     und "Zurück zur Kategorie".
  *
+ *   PixelPortGameScreens.renderHowToPlayButton(container, { gameName, text })
+ *     Hängt einen "❓ Wie spiele ich das?"-Button an, der beim Klick ein
+ *     Overlay mit einer kurzen Spielerklärung öffnet. Wird sowohl von
+ *     js/category.js (Spiel-Kacheln) als auch optional von renderSetup()
+ *     genutzt. Ohne text passiert nichts (kein Button).
+ *
  * Neues Spiel anbinden: siehe games/pong/pong.js als Referenzbeispiel.
  */
 
@@ -81,18 +87,24 @@
    * options:
    *   gameName            Anzeigename für die Überschrift
    *   intro                optionaler Hinweistext
+   *   howToPlay            optionaler Spielerklärungs-Text (siehe renderHowToPlayButton)
    *   modes                optionales Array [{ id, label, description }]
    *   defaultDifficultyId  Standard-Schwierigkeit (Default: 3 = "Mittel")
    *   defaultModeId        Standard-Modus (Default: modes[0].id)
    *   onStart({ difficulty, mode })
    */
   function renderSetup(container, options) {
-    const { gameName, intro, modes, defaultDifficultyId = 3, defaultModeId, onStart } = options;
+    const { gameName, intro, howToPlay, modes, defaultDifficultyId = 3, defaultModeId, onStart } = options;
 
     container.innerHTML = "";
     const wrap = el("div", "game-setup");
     wrap.append(el("h2", "game-setup__title", `${gameName} starten`));
     if (intro) wrap.append(el("p", "game-setup__intro", intro));
+    if (howToPlay) {
+      const howtoWrap = el("div", "game-setup__howto");
+      renderHowToPlayButton(howtoWrap, { gameName, text: howToPlay });
+      wrap.appendChild(howtoWrap);
+    }
 
     let selectedDifficulty = defaultDifficultyId;
     renderOptionGroup(wrap, {
@@ -167,9 +179,81 @@
     container.appendChild(wrap);
   }
 
+  // ---- "Wie spiele ich das?"-Overlay ----
+  // Ein einzelnes Overlay-Element wird lazy erzeugt und für alle Aufrufe
+  // wiederverwendet (mehrere Kacheln auf einer Seite brauchen keine eigenen).
+
+  let modalEl = null;
+
+  function ensureModal() {
+    if (modalEl) return modalEl;
+
+    modalEl = el("div", "pp-modal");
+    modalEl.hidden = true;
+
+    const box = el("div", "pp-modal__box");
+    box.setAttribute("role", "dialog");
+    box.setAttribute("aria-modal", "true");
+
+    const closeBtn = el("button", "pp-modal__close", "✕");
+    closeBtn.type = "button";
+    closeBtn.setAttribute("aria-label", "Schließen");
+    closeBtn.addEventListener("click", hideHowToPlay);
+
+    const titleEl = el("h2", "pp-modal__title");
+    const textEl = el("p", "pp-modal__text");
+
+    box.append(closeBtn, titleEl, textEl);
+    modalEl.appendChild(box);
+
+    // Klick auf den dunklen Hintergrund schließt das Overlay, Klick in die Box nicht.
+    modalEl.addEventListener("click", (event) => {
+      if (event.target === modalEl) hideHowToPlay();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !modalEl.hidden) hideHowToPlay();
+    });
+
+    document.body.appendChild(modalEl);
+    return modalEl;
+  }
+
+  function showHowToPlay(title, text) {
+    const modal = ensureModal();
+    modal.querySelector(".pp-modal__title").textContent = title;
+    modal.querySelector(".pp-modal__text").textContent = text;
+    modal.hidden = false;
+  }
+
+  function hideHowToPlay() {
+    if (modalEl) modalEl.hidden = true;
+  }
+
+  /**
+   * Hängt einen "❓ Wie spiele ich das?"-Button an container, der beim Klick
+   * das Overlay mit text öffnet. Ohne text wird nichts gerendert - so kann
+   * ein Spiel (z.B. ein "Bald verfügbar"-Platzhalter) den Button einfach
+   * weglassen, indem es kein howToPlay in games-data.js einträgt.
+   */
+  function renderHowToPlayButton(container, { gameName, text }) {
+    if (!text) return null;
+
+    const btn = el("button", "howto-button", "❓ Wie spiele ich das?");
+    btn.type = "button";
+    btn.addEventListener("click", (event) => {
+      // Kachel kann ein <a> sein (spielbare Spiele) - Navigation verhindern.
+      event.preventDefault();
+      event.stopPropagation();
+      showHowToPlay(`❓ ${gameName} – Wie spiele ich das?`, text);
+    });
+    container.appendChild(btn);
+    return btn;
+  }
+
   window.PixelPortGameScreens = {
     DIFFICULTIES,
     renderSetup,
     renderResult,
+    renderHowToPlayButton,
   };
 })();

@@ -151,3 +151,87 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+/* ---- "Wie spiele ich das?"-Button ---- */
+.game-setup__howto {
+  display: flex;
+  justify-content: center;
+  margin-top: -8px;
+}
+
+.howto-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.howto-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ---- Spielerklärungs-Overlay ---- */
+.pp-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(10, 10, 16, 0.6);
+}
+
+.pp-modal[hidden] {
+  display: none;
+}
+
+.pp-modal__box {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  padding: 28px 24px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.pp-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.pp-modal__close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.pp-modal__title {
+  margin: 0 0 12px;
+  padding-right: 28px;
+  font-size: 1.15rem;
+}
+
+.pp-modal__text {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}

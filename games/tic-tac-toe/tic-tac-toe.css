@@ -1,0 +1,68 @@
+/**
+ * tic-tac-toe.css
+ *
+ * Spielspezifische Styles für Tic-Tac-Toe. Panel/Setup/Ergebnis kommen
+ * bereits aus css/game-screens.css + css/game-theme-light.css - hier
+ * steht nur das Spielfeld. X und O nutzen die beiden Akzentfarben des
+ * aktuellen Design-Themes (kräftig, aber immer als "zwei Teams" klar
+ * unterscheidbar).
+ */
+
+.ttt-play {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.ttt-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1;
+}
+
+.ttt-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fbf5e7;
+  border: 3px solid #e7ddc8;
+  border-radius: 18px;
+  font-size: 3rem;
+  font-weight: 800;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.12s ease;
+}
+
+.ttt-cell.is-clickable {
+  cursor: pointer;
+}
+
+.ttt-cell.is-clickable:hover {
+  border-color: var(--accent);
+  background: #fff;
+  transform: translateY(-2px);
+}
+
+.ttt-cell--x {
+  color: var(--accent);
+}
+
+.ttt-cell--o {
+  color: var(--accent-2);
+}
+
+.ttt-cell.is-winning {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+@media (max-width: 480px) {
+  .ttt-cell {
+    font-size: 2.2rem;
+    border-radius: 12px;
+  }
+}

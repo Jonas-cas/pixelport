@@ -47,8 +47,8 @@ const GAME_CATEGORIES = [
         id: "tic-tac-toe",
         name: "Tic-Tac-Toe",
         icon: "❌⭕",
-        available: false,
-        url: null,
+        available: true,
+        url: "games/tic-tac-toe/index.html",
         howToPlay:
           "Auf einem 3x3-Feld setzen zwei Spieler abwechselnd ihr Symbol (X oder O) in ein freies Feld. Wer zuerst drei eigene Symbole in einer Reihe hat - waagerecht, senkrecht oder diagonal - gewinnt. Sind alle Felder voll ohne Gewinner, endet die Partie unentschieden.",
       },

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snake – PixelPort</title>
+
+  <script src="../../js/theme.js"></script>
+
+  <link rel="stylesheet" href="../../css/themes.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/game-screens.css" />
+  <link rel="stylesheet" href="snake.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="../../category.html?id=spiele-1990">← 1990er Spiele</a>
+    <a class="icon-button" href="../../settings.html" aria-label="Einstellungen" title="Einstellungen">⚙️</a>
+  </header>
+
+  <main class="page game-page">
+    <section class="page-intro">
+      <h1>🐍 Snake</h1>
+    </section>
+
+    <div class="game-root">
+      <!-- Vorbildschirm: nur Schwierigkeit (Snake ist Einzelspieler, kein Modus nötig) -->
+      <section id="setup-screen" class="game-screen"></section>
+
+      <!-- Eigentliches Spiel -->
+      <section id="play-screen" class="game-screen" hidden>
+        <div class="game-hud">
+          <span id="score-value">0</span>
+        </div>
+        <canvas id="snake-canvas" width="800" height="480"></canvas>
+        <p class="game-hint">Steuerung: Pfeiltasten oder WASD</p>
+      </section>
+
+      <!-- Ergebnis-Bildschirm, wird von game-screens.js befüllt -->
+      <section id="result-screen" class="game-screen" hidden></section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <a class="back-link" href="../../category.html?id=spiele-1990">← Zurück zu 1990er Spiele</a>
+  </footer>
+
+  <script src="../../js/game-screens.js"></script>
+  <script src="snake.js"></script>
+</body>
+</html>

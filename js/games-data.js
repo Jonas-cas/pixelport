@@ -101,8 +101,8 @@ const GAME_CATEGORIES = [
         id: "snake",
         name: "Snake",
         icon: "🐍",
-        available: false,
-        url: null,
+        available: true,
+        url: "games/snake/index.html",
         howToPlay:
           "Du steuerst eine Schlange, die sich über das Spielfeld bewegt und ständig weiter wächst. Ziel ist es, Futter einzusammeln, ohne gegen die Wand oder den eigenen Schlangenkörper zu stoßen. Mit jedem gefressenen Futter wird die Schlange länger und das Spiel schwieriger.",
       },

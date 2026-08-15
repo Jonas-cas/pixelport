@@ -1,0 +1,72 @@
+/**
+ * tetris.css
+ *
+ * Spielspezifische Styles für Tetris. Layout/Setup/Ergebnis-Bildschirm
+ * kommen bereits aus css/game-screens.css - hier steht nur die Canvas-Darstellung.
+ */
+
+.tetris-play {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.game-hud {
+  font-size: 1.6rem;
+}
+
+.tetris-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+#tetris-canvas {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  aspect-ratio: 1 / 2;
+  background: var(--bg-elevated);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  touch-action: none;
+}
+
+.tetris-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.tetris-label {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+#tetris-next {
+  width: 90px;
+  height: 90px;
+  background: var(--bg-elevated);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+}
+
+@media (max-width: 480px) {
+  .tetris-main {
+    gap: 12px;
+  }
+
+  #tetris-canvas {
+    max-width: 220px;
+  }
+
+  #tetris-next {
+    width: 64px;
+    height: 64px;
+  }
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tetris – PixelPort</title>
+
+  <script src="../../js/theme.js"></script>
+
+  <link rel="stylesheet" href="../../css/themes.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/game-screens.css" />
+  <link rel="stylesheet" href="tetris.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="../../category.html?id=spiele-1990">← 1990er Spiele</a>
+    <a class="icon-button" href="../../settings.html" aria-label="Einstellungen" title="Einstellungen">⚙️</a>
+  </header>
+
+  <main class="page game-page">
+    <section class="page-intro">
+      <h1>🟦🟨 Tetris</h1>
+    </section>
+
+    <div class="game-root">
+      <!-- Vorbildschirm: nur Schwierigkeit (Tetris ist Einzelspieler, kein Modus nötig) -->
+      <section id="setup-screen" class="game-screen"></section>
+
+      <!-- Eigentliches Spiel -->
+      <section id="play-screen" class="game-screen tetris-play" hidden>
+        <div class="game-hud">
+          <span id="score-value">0</span>
+        </div>
+
+        <div class="tetris-main">
+          <canvas id="tetris-canvas" width="300" height="600"></canvas>
+          <div class="tetris-side">
+            <p class="tetris-label">Nächster Stein</p>
+            <canvas id="tetris-next" width="100" height="100"></canvas>
+          </div>
+        </div>
+
+        <p class="game-hint">← → bewegen · ↑ drehen · ↓ schneller fallen · Leertaste: Hard Drop</p>
+      </section>
+
+      <!-- Ergebnis-Bildschirm, wird von game-screens.js befüllt -->
+      <section id="result-screen" class="game-screen" hidden></section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <a class="back-link" href="../../category.html?id=spiele-1990">← Zurück zu 1990er Spiele</a>
+  </footer>
+
+  <script src="../../js/game-screens.js"></script>
+  <script src="tetris.js"></script>
+</body>
+</html>

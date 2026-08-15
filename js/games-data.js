@@ -119,8 +119,8 @@ const GAME_CATEGORIES = [
         id: "tetris",
         name: "Tetris",
         icon: "🟦🟨",
-        available: false,
-        url: null,
+        available: true,
+        url: "games/tetris/index.html",
         howToPlay:
           "Verschiedene Blockformen fallen von oben ins Spielfeld. Du drehst und verschiebst sie, damit sie möglichst lückenlos ganze Reihen füllen. Volle Reihen verschwinden und bringen Punkte - stapeln sich die Blöcke bis nach oben, ist das Spiel vorbei.",
       },

@@ -110,10 +110,10 @@ const GAME_CATEGORIES = [
         id: "breakout",
         name: "Breakout",
         icon: "🧱",
-        available: false,
-        url: null,
+        available: true,
+        url: "games/breakout/index.html",
         howToPlay:
-          "Mit einem beweglichen Schläger am unteren Rand hältst du einen Ball im Spiel. Der Ball soll die bunten Steine am oberen Bildschirmrand zerstören, indem er sie trifft. Fällt der Ball nach unten durch, ohne dass du ihn triffst, verlierst du ein Leben.",
+          "Mit einem beweglichen Schläger am unteren Rand hältst du einen Ball im Spiel. Der Ball soll die bunten Steine am oberen Bildschirmrand zerstören, indem er sie trifft. Fällt der Ball nach unten durch, ohne dass du ihn triffst, verlierst du ein Leben. Sind alle Steine zerstört, hast du gewonnen.",
       },
       {
         id: "tetris",

@@ -132,8 +132,8 @@ const GAME_CATEGORIES = [
         id: "space-invaders",
         name: "Space Invaders",
         icon: "👽",
-        available: false,
-        url: null,
+        available: true,
+        url: "games/space-invaders/index.html",
         howToPlay:
           "Am unteren Bildschirmrand steuerst du ein Raumschiff und schießt auf Reihen von Alien-Gegnern, die sich langsam nach unten bewegen. Ziel ist es, alle Aliens abzuschießen, bevor sie den unteren Rand erreichen. Weiche dabei den Schüssen der Gegner aus.",
       },

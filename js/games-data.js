@@ -162,10 +162,10 @@ const GAME_CATEGORIES = [
         id: "tron-duell",
         name: "Tron-Duell",
         icon: "🏍️",
-        available: false,
-        url: null,
+        available: true,
+        url: "games/tron-duell/index.html",
         howToPlay:
-          "Zwei Spieler steuern Lichtmotorräder, die eine permanente Spur hinter sich herziehen. Fährst du gegen die Wand, deine eigene Spur oder die Spur des Gegners, verlierst du. Wer als Letzter noch fährt, gewinnt das Duell.",
+          "Zwei Spieler steuern Lichtmotorräder, die eine permanente Spur hinter sich herziehen. Fährst du gegen die Wand, deine eigene Spur oder die Spur des Gegners, verlierst du die Runde. Wer zuerst 3 Runden gewinnt, gewinnt das Duell.",
       },
     ],
   },

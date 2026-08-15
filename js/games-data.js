@@ -56,8 +56,8 @@ const GAME_CATEGORIES = [
         id: "schach",
         name: "Schach",
         icon: "♟️",
-        available: false,
-        url: null,
+        available: true,
+        url: "games/chess/index.html",
         howToPlay:
           "Zwei Spieler bewegen abwechselnd ihre Figuren auf einem 8x8-Feld, wobei jede Figur eigene Zugregeln hat. Ziel ist es, den gegnerischen König so anzugreifen, dass er nicht mehr entkommen kann (Schachmatt). Zieht eine eigene Figur auf das Feld einer gegnerischen, wird diese geschlagen.",
       },

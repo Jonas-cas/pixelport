@@ -69,10 +69,10 @@ const GAME_CATEGORIES = [
         id: "dame",
         name: "Dame",
         icon: "⚫⚪",
-        available: false,
-        url: null,
+        available: true,
+        url: "games/dame/index.html",
         howToPlay:
-          "Zwei Spieler bewegen ihre Steine diagonal über ein Schachbrett-Feld. Springt man diagonal über einen gegnerischen Stein und die Landefläche dahinter ist frei, wird dieser geschlagen und entfernt. Wer alle gegnerischen Steine schlägt oder bewegungsunfähig macht, gewinnt.",
+          "Zwei Spieler bewegen ihre Steine diagonal über ein Schachbrett-Feld. Springt man diagonal über einen gegnerischen Stein und die Landefläche dahinter ist frei, wird dieser geschlagen und entfernt. Wer alle gegnerischen Steine schlägt oder bewegungsunfähig macht, gewinnt. Ist ein Schlagzug möglich, muss geschlagen werden (Schlagzwang).",
       },
       {
         id: "memory",

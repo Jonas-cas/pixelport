@@ -38,9 +38,9 @@ const GAME_CATEGORIES = [
     icon: "👾",
     description: "Retro-Klassiker im Stil der 90er Jahre.",
     games: [
+      { id: "pong", name: "Pong", icon: "🏓", available: true, url: "games/pong/index.html" },
       { id: "snake", name: "Snake", icon: "🐍", available: false, url: null },
       { id: "tetris-style", name: "Tetris-Style", icon: "🧱", available: false, url: null },
-      { id: "pong", name: "Pong", icon: "🏓", available: false, url: null },
       { id: "minesweeper", name: "Minesweeper", icon: "💣", available: false, url: null },
     ],
   },

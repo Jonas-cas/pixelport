@@ -1,0 +1,153 @@
+/**
+ * game-screens.css
+ *
+ * Styles für das wiederverwendbare Setup-/Ergebnis-Bildschirm-Modul
+ * (js/game-screens.js) sowie eine gemeinsame HUD-Leiste, die alle Spiele
+ * im Portal nutzen können.
+ */
+
+.game-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-screen[hidden] {
+  display: none;
+}
+
+/* ---- Setup-Bildschirm ---- */
+.game-setup {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.game-setup__title {
+  margin: 0;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.game-setup__intro {
+  margin: -12px 0 0;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.game-option-group__title {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.game-option-group__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.option-button {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text);
+  font-weight: 600;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.option-button.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.game-setup__start {
+  align-self: center;
+  padding: 12px 28px;
+  border-radius: 12px;
+  border: none;
+  background: var(--accent-gradient);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.game-setup__start:hover {
+  filter: brightness(1.08);
+}
+
+/* ---- HUD (Punktestand etc.) ---- */
+.game-hud {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.game-hud__divider {
+  color: var(--text-secondary);
+}
+
+.game-hint {
+  margin-top: 12px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.game-hint kbd {
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  font-family: inherit;
+}
+
+/* ---- Ergebnis-Bildschirm ---- */
+.game-result {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 32px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.game-result__title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.game-result__message {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.game-result__actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}

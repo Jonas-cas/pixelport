@@ -4,6 +4,16 @@
  * Styles für das wiederverwendbare Setup-/Ergebnis-Bildschirm-Modul
  * (js/game-screens.js) sowie eine gemeinsame HUD-Leiste, die alle Spiele
  * im Portal nutzen können.
+ *
+ * Der Vorbildschirm (Schwierigkeit/Modus-Auswahl) und der Ergebnis-
+ * Bildschirm sind bei JEDEM Spiel im "2 Player Games"-Stil gestaltet
+ * (farbiger Kopfbereich mit Titel + weiße Karte mit den Auswahl-Buttons
+ * darunter) - unabhängig davon, ob das Spiel selbst dunkel/CRT (Pong,
+ * Snake, Tron-Duell, ...) oder hell/verspielt (Schach, Uno, ...) ist. Nur
+ * die eigentliche Spielfläche (#play-screen) unterscheidet sich weiterhin:
+ * dunkle Arcade-Spiele bleiben dort dunkel, siehe css/game-theme-light.css
+ * für den zusätzlichen hellen Skin, den nur die Brett-/Kartenspiele auch
+ * während des Spiels bekommen.
  */
 
 .game-root {
@@ -19,77 +29,177 @@
 /* ---- Setup-Bildschirm ---- */
 .game-setup {
   width: 100%;
-  max-width: 520px;
+  max-width: 480px;
   margin: 0 auto;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.12), 0 18px 34px rgba(0, 0, 0, 0.24);
+}
+
+.game-setup__header {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 24px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  box-shadow: var(--shadow);
+  align-items: center;
+  gap: 8px;
+  padding: 30px 24px 26px;
+  background: var(--accent-gradient);
+  text-align: center;
 }
 
 .game-setup__icon {
-  align-self: center;
-  font-size: 3.4rem;
+  font-size: 4rem;
   line-height: 1;
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.25));
+  animation: game-icon-bounce 2.4s ease-in-out infinite;
+}
+
+@keyframes game-icon-bounce {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(3deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-setup__icon {
+    animation: none;
+  }
 }
 
 .game-setup__title {
   margin: 0;
-  font-size: 1.3rem;
-  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.01em;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.18), 0 2px 14px rgba(0, 0, 0, 0.2);
 }
 
 .game-setup__intro {
-  margin: -12px 0 0;
-  color: var(--text-secondary);
-  text-align: center;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 600;
+}
+
+.game-setup__card {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 26px 22px;
+  background: #fff;
 }
 
 .game-option-group__title {
   margin: 0 0 10px;
-  font-size: 0.95rem;
-  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #6b6355;
+  text-align: center;
 }
 
 .game-option-group__options {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
+  justify-content: center;
 }
 
 .option-button {
-  padding: 10px 16px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: var(--bg-elevated);
-  color: var(--text);
-  font-weight: 600;
-  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+  padding: 11px 18px;
+  border-radius: 14px;
+  border: 2.5px solid #e7ddc8;
+  background: #fff;
+  color: #2c2a24;
+  font-weight: 800;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.option-button:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
 }
 
 .option-button.is-active {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 70%, black);
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--accent) 70%, black);
+}
+
+/* Modus-Auswahl: große, runde Buttons mit Icon (z.B. 🧑‍🤝‍🧑 "2 Spieler",
+   🤖 "Gegen Bot") statt der kompakten Text-Pills der Schwierigkeitsstufen. */
+.option-button--mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 112px;
+  padding: 16px 16px 14px;
+  border-radius: 22px;
+}
+
+.option-button__icon {
+  font-size: 1.9rem;
+  line-height: 1;
+}
+
+.option-button__label {
+  font-size: 0.9rem;
 }
 
 .game-setup__start {
   align-self: center;
-  padding: 12px 28px;
-  border-radius: 12px;
+  padding: 14px 32px;
+  border-radius: 16px;
   border: none;
   background: var(--accent-gradient);
   color: #fff;
-  font-weight: 700;
-  font-size: 1rem;
+  font-weight: 800;
+  font-size: 1.05rem;
+  box-shadow: 0 5px 0 color-mix(in srgb, var(--accent) 55%, black), 0 10px 18px rgba(0, 0, 0, 0.2);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.15s ease;
 }
 
 .game-setup__start:hover {
-  filter: brightness(1.08);
+  filter: brightness(1.05);
+  transform: translateY(-2px);
+}
+
+.game-setup__start:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--accent) 55%, black), 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+/* Zurück-Button: bewusst fest Orange (nicht themeabhängig) - "Zurück" soll
+   sich unabhängig vom gewählten Design-Theme immer gleich anfühlen. */
+.game-setup__back {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 26px;
+  border-radius: 14px;
+  border: none;
+  background: #f97316;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-decoration: none;
+  box-shadow: 0 4px 0 #c2570a, 0 8px 14px rgba(0, 0, 0, 0.18);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.15s ease;
+}
+
+.game-setup__back:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+}
+
+.game-setup__back:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #c2570a, 0 4px 8px rgba(0, 0, 0, 0.16);
 }
 
 /* ---- HUD (Punktestand etc.) ---- */
@@ -128,32 +238,45 @@
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding: 32px 24px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  box-shadow: var(--shadow);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.12), 0 18px 34px rgba(0, 0, 0, 0.24);
+}
+
+.game-result__header {
+  padding: 30px 24px 26px;
+  background: var(--accent-gradient);
   text-align: center;
 }
 
 .game-result__title {
   margin: 0;
   font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.18), 0 2px 14px rgba(0, 0, 0, 0.2);
+}
+
+.game-result__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 26px 22px;
+  background: #fff;
+  text-align: center;
 }
 
 .game-result__message {
   margin: 0;
-  color: var(--text-secondary);
+  color: #6b6355;
+  font-weight: 600;
 }
 
 .game-result__actions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -162,26 +285,27 @@
 .game-setup__howto {
   display: flex;
   justify-content: center;
-  margin-top: -8px;
+  margin-top: -4px;
 }
 
 .howto-button {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
+  padding: 8px 16px;
   border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--bg-elevated);
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  font-weight: 600;
-  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+  border: 2.5px solid #e7ddc8;
+  background: #fff;
+  color: #6b6355;
+  font-size: 0.85rem;
+  font-weight: 800;
+  transition: border-color 0.15s ease, color 0.15s ease, transform 0.12s ease;
 }
 
 .howto-button:hover {
   border-color: var(--accent);
   color: var(--accent);
+  transform: translateY(-2px);
 }
 
 /* ---- Spielerklärungs-Overlay ---- */
@@ -205,10 +329,10 @@
   width: 100%;
   max-width: 420px;
   padding: 28px 24px 24px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  box-shadow: var(--shadow);
+  background: #fff;
+  border: 4px solid var(--accent);
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
 }
 
 .pp-modal__close {
@@ -218,9 +342,9 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 1px solid var(--border);
-  background: var(--bg-elevated);
-  color: var(--text);
+  border: 2px solid #e7ddc8;
+  background: #fff;
+  color: #2c2a24;
   font-size: 1rem;
   line-height: 1;
 }
@@ -234,10 +358,13 @@
   margin: 0 0 12px;
   padding-right: 28px;
   font-size: 1.15rem;
+  font-weight: 800;
+  color: #2c2a24;
 }
 
 .pp-modal__text {
   margin: 0;
-  color: var(--text-secondary);
+  color: #6b6355;
+  font-weight: 500;
   line-height: 1.5;
 }

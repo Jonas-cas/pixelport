@@ -22,8 +22,8 @@
     "Zwei Spieler werfen abwechselnd Spielsteine in eines von mehreren senkrechten Feldern, die sich von unten füllen. Ziel ist es, als Erster vier eigene Steine in einer Reihe zu bekommen - waagerecht, senkrecht oder diagonal. Wer das zuerst schafft, gewinnt.";
 
   const MODES = [
-    { id: "2p", label: "2 Spieler", description: "Beide Seiten werden von Menschen gesteuert." },
-    { id: "bot", label: "Gegen Bot", description: "Gelb wird von einer KI gesteuert, Rot spielst du." },
+    { id: "2p", label: "2 Spieler", icon: "🧑‍🤝‍🧑", description: "Beide Seiten werden von Menschen gesteuert." },
+    { id: "bot", label: "Gegen Bot", icon: "🤖", description: "Gelb wird von einer KI gesteuert, Rot spielst du." },
   ];
 
   // Schwierigkeitsstufe (id aus PixelPortGameScreens.DIFFICULTIES) -> Suchtiefe + Zufallsanteil.
@@ -352,6 +352,8 @@
       modes: MODES,
       defaultDifficultyId: 3,
       defaultModeId: "2p",
+      backHref: CATEGORY_URL,
+      backLabel: "← Zurück zu Brettspiele",
       onStart: startGame,
     });
   }

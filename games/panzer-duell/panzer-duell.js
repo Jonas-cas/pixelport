@@ -30,8 +30,8 @@
     "Zwei Panzer treten auf einem Feld mit Hindernissen gegeneinander an. Spieler 1 steuert mit WASD und schießt mit der Leertaste, Spieler 2 mit den Pfeiltasten und schießt mit Enter oder Strg. Trefft ihr den gegnerischen Panzer, gewinnt ihr die Runde - weicht dabei Hindernissen und gegnerischen Schüssen aus. Wer zuerst 3 Runden gewinnt, gewinnt das Duell.";
 
   const MODES = [
-    { id: "2p", label: "2 Spieler", description: "Spieler 1 (WASD) gegen Spieler 2 (Pfeiltasten)." },
-    { id: "bot", label: "Gegen Bot", description: "Spieler 2 wird von einer KI gesteuert." },
+    { id: "2p", label: "2 Spieler", icon: "🧑‍🤝‍🧑", description: "Spieler 1 (WASD) gegen Spieler 2 (Pfeiltasten)." },
+    { id: "bot", label: "Gegen Bot", icon: "🤖", description: "Spieler 2 wird von einer KI gesteuert." },
   ];
 
   // Schwierigkeitsstufe (id aus PixelPortGameScreens.DIFFICULTIES) -> Bot-Verhalten.
@@ -508,6 +508,8 @@
       modes: MODES,
       defaultDifficultyId: 3,
       defaultModeId: "2p",
+      backHref: CATEGORY_URL,
+      backLabel: "← Zurück zum Duell",
       onStart: startGame,
     });
   }

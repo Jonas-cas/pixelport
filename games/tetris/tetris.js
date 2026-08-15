@@ -361,6 +361,8 @@
       intro: "Wähle die Schwierigkeit, um zu starten.",
       howToPlay: HOW_TO_PLAY,
       defaultDifficultyId: 3,
+      backHref: CATEGORY_URL,
+      backLabel: "← Zurück zu 1990er Spiele",
       onStart: startGame,
     });
   }

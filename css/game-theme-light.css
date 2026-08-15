@@ -1,24 +1,30 @@
 /**
  * game-theme-light.css
  *
- * Kräftiger, verspielter Skin für Brett- und Kartenspiele (aktuell
- * Schach, Mau Mau, Vier Gewinnt, Tic-Tac-Toe - künftig z.B. Dame,
- * Solitaire). Aktiviert durch das Attribut data-game-theme="light" auf
- * <body>.
+ * Kräftiger, verspielter Skin für die eigentliche Spielfläche von Brett-
+ * und Kartenspielen (aktuell Schach, Dame, Mau Mau, Uno, Vier Gewinnt,
+ * Tic-Tac-Toe - künftig z.B. Solitaire). Aktiviert durch das Attribut
+ * data-game-theme="light" auf <body>.
  *
- * WICHTIG: Das betrifft NUR die eigentlichen Spiel-Elemente (Vorbild-
- * schirm, Spielfläche/Panel, Ergebnis-Bildschirm, Buttons, Howto-
- * Overlay) - NICHT den App-Rahmen (Header, Footer, Seitenhintergrund,
+ * Der Vorbildschirm und der Ergebnis-Bildschirm sind inzwischen bei JEDEM
+ * Spiel im selben "2 Player Games"-Stil gestaltet (siehe
+ * css/game-screens.css, Basis-Stylesheet, das alle Spiele einbinden) -
+ * dieses Stylesheet hier betrifft nur noch das, was WÄHREND des Spiels zu
+ * sehen ist (#play-screen samt Status-Anzeige/Hinweistext): bei
+ * Brett-/Kartenspielen bleibt auch die Spielfläche hell/bunt, bei
+ * Retro-Arcade-Spielen (Pong, Breakout, Tron-Duell, Snake, Tetris,
+ * Space Invaders, Panzer-Duell, ...) bleibt sie dunkel im CRT-Look -
+ * diese Datei wird von ihnen deshalb gar nicht erst eingebunden.
+ *
+ * WICHTIG: Auch hier gilt weiterhin - das betrifft NUR das Spiel-Panel
+ * selbst, NICHT den App-Rahmen (Header, Footer, Seitenhintergrund,
  * Zurück-Link, Einstellungen-Button). Der App-Rahmen folgt weiterhin
  * ganz normal der globalen Dark-/Bright-Mode-Einstellung aus den
- * Settings, wie auf jeder anderen Seite auch - dieses Stylesheet
- * überschreibt data-mode nirgendwo. Nur das Spiel selbst (das "Brett"
- * bzw. "Kartendeck") hat eine eigene, feste, helle Optik, unabhängig
- * vom Modus - so wie ein echtes Brett auch keinen Dark Mode hat.
- *
- * Retro-Arcade-Spiele (Pong, Breakout, Tron-Duell, Snake, Tetris, ...)
- * binden diese Datei NICHT ein und bleiben unverändert beim dunklen
- * CRT-Look.
+ * Settings, wie auf jeder anderen Seite auch. Und: die originalgetreuen
+ * Farben von Brett/Karten/Steinen (siehe die spielspezifischen CSS-
+ * Dateien, z.B. games/chess/chess.css) werden hiervon nicht berührt -
+ * ein Schachbrett bleibt braun/beige, Uno-Karten bleiben in echten
+ * Uno-Farben, unabhängig vom gewählten Design-Theme.
  *
  * Die Design-Theme-Akzentfarbe (Neon/Ocean/Sunset/Forest aus den
  * Settings) bleibt aktiv und bestimmt Rahmen/Buttons/Highlights.
@@ -33,115 +39,15 @@
  *      (Rahmen, Ecken, Schatten), siehe games/chess/index.html
  */
 
-/* ---- Vorbildschirm / Ergebnis-Bildschirm (js/game-screens.js) ---- */
-
-body[data-game-theme="light"] .game-setup,
-body[data-game-theme="light"] .game-result,
-body[data-game-theme="light"] .game-play-panel {
-  background: #ffffff;
-  border: 4px solid var(--accent);
-  border-radius: 28px;
-  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.08), 0 18px 34px rgba(0, 0, 0, 0.16);
-}
-
 body[data-game-theme="light"] .game-play-panel {
   width: 100%;
   max-width: 620px;
   margin: 0 auto;
   padding: 28px 22px 32px;
-}
-
-body[data-game-theme="light"] .game-setup__icon {
-  font-size: 4.2rem;
-  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.22));
-  animation: game-icon-bounce 2.4s ease-in-out infinite;
-}
-
-@keyframes game-icon-bounce {
-  0%, 100% {
-    transform: translateY(0) rotate(-3deg);
-  }
-  50% {
-    transform: translateY(-8px) rotate(3deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  body[data-game-theme="light"] .game-setup__icon {
-    animation: none;
-  }
-}
-
-body[data-game-theme="light"] .game-setup__title,
-body[data-game-theme="light"] .game-result__title {
-  color: #2c2a24;
-  font-size: 1.7rem;
-  font-weight: 900;
-  letter-spacing: -0.01em;
-  text-shadow: 2px 2px 0 var(--accent-soft), 3px 3px 0 rgba(0, 0, 0, 0.08);
-}
-
-body[data-game-theme="light"] .game-setup__intro,
-body[data-game-theme="light"] .game-result__message,
-body[data-game-theme="light"] .game-option-group__title {
-  color: #6b6355;
-  font-weight: 600;
-}
-
-body[data-game-theme="light"] .option-button {
-  background: #fff;
-  border: 2.5px solid #e7ddc8;
-  border-radius: 14px;
-  color: #2c2a24;
-  font-weight: 800;
-  padding: 12px 18px;
-  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.12s ease, box-shadow 0.12s ease;
-}
-
-body[data-game-theme="light"] .option-button:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-}
-
-body[data-game-theme="light"] .option-button.is-active {
-  border-color: color-mix(in srgb, var(--accent) 70%, black);
-  background: var(--accent);
-  color: #fff;
-  box-shadow: 0 4px 0 color-mix(in srgb, var(--accent) 70%, black);
-}
-
-body[data-game-theme="light"] .game-setup__start {
-  padding: 14px 32px;
-  border-radius: 16px;
-  font-size: 1.05rem;
-  font-weight: 800;
-  box-shadow: 0 5px 0 color-mix(in srgb, var(--accent) 55%, black), 0 10px 18px rgba(0, 0, 0, 0.2);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.15s ease;
-}
-
-body[data-game-theme="light"] .game-setup__start:hover {
-  filter: brightness(1.05);
-  transform: translateY(-2px);
-}
-
-body[data-game-theme="light"] .game-setup__start:active {
-  transform: translateY(3px);
-  box-shadow: 0 2px 0 color-mix(in srgb, var(--accent) 55%, black), 0 4px 10px rgba(0, 0, 0, 0.18);
-}
-
-body[data-game-theme="light"] .howto-button {
-  background: #fff;
-  border: 2.5px solid #e7ddc8;
-  border-radius: 999px;
-  color: #6b6355;
-  font-weight: 800;
-  padding: 8px 16px;
-}
-
-body[data-game-theme="light"] .howto-button:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateY(-2px);
+  background: #ffffff;
+  border: 4px solid var(--accent);
+  border-radius: 28px;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.08), 0 18px 34px rgba(0, 0, 0, 0.16);
 }
 
 body[data-game-theme="light"] .game-hint {
@@ -164,37 +70,7 @@ body[data-game-theme="light"] .game-hud__divider {
   color: #cbbfa0;
 }
 
-/* ---- "Wie spiele ich das?"-Overlay ---- */
-
-body[data-game-theme="light"] .pp-modal__box {
-  background: #ffffff;
-  border: 4px solid var(--accent);
-  border-radius: 24px;
-  color: #2c2a24;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
-}
-
-body[data-game-theme="light"] .pp-modal__title {
-  font-weight: 800;
-}
-
-body[data-game-theme="light"] .pp-modal__text {
-  color: #6b6355;
-  font-weight: 500;
-}
-
-body[data-game-theme="light"] .pp-modal__close {
-  background: #fff;
-  border: 2px solid #e7ddc8;
-  color: #2c2a24;
-}
-
-body[data-game-theme="light"] .pp-modal__close:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-/* ---- Wiederverwendbare, bunte Status-/Punktestand-Pille ---- */
+/* ---- Wiederverwendbare, bunte Status-/Punktestand-Pille (während des Spiels) ---- */
 .status-pill {
   display: inline-block;
   align-self: center;

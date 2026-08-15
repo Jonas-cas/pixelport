@@ -36,9 +36,9 @@
     "Reihum legt ihr eine Karte, die in Farbe oder Zahl/Symbol zur obersten Karte passt. Aussetzen überspringt den nächsten Spieler, Richtungswechsel dreht die Reihenfolge um, und +2 zwingt den nächsten Spieler, 2 Karten zu ziehen und auszusetzen. Die Farbwahl-Karten sind immer legal und lassen dich eine neue Farbe bestimmen - die schwarze +4-Karte zwingt den nächsten Spieler zusätzlich, 4 Karten zu ziehen. Kannst du keine passende Karte legen, musst du eine Karte ziehen. Wer zuerst alle Karten losgeworden ist, gewinnt.";
 
   const MODES = [
-    { id: "1bot", label: "1 Bot", description: "Du spielst gegen einen Bot." },
-    { id: "2bots", label: "2 Bots", description: "Du spielst gegen zwei Bots." },
-    { id: "3bots", label: "3 Bots", description: "Du spielst gegen drei Bots." },
+    { id: "1bot", label: "1 Bot", icon: "🤖", description: "Du spielst gegen einen Bot." },
+    { id: "2bots", label: "2 Bots", icon: "🤖", description: "Du spielst gegen zwei Bots." },
+    { id: "3bots", label: "3 Bots", icon: "🤖", description: "Du spielst gegen drei Bots." },
   ];
 
   // Schwierigkeitsstufe (id aus PixelPortGameScreens.DIFFICULTIES) -> Bot-Cleverness (0..1).
@@ -518,6 +518,8 @@
       modes: MODES,
       defaultDifficultyId: 3,
       defaultModeId: "1bot",
+      backHref: CATEGORY_URL,
+      backLabel: "← Zurück zu Kartenspiele",
       onStart: startGame,
     });
   }

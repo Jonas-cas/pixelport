@@ -19,8 +19,8 @@
     "Zwei Schläger, einer links und einer rechts, bewegen sich rauf und runter. Ihr müsst den Ball mit eurem Schläger zurückschlagen, bevor er hinter euch vorbeifliegt. Verfehlt ihr den Ball, bekommt der Gegner einen Punkt. Wer zuerst 10 Punkte erreicht, gewinnt.";
 
   const MODES = [
-    { id: "2p", label: "2 Spieler", description: "Beide Schläger werden von Menschen gesteuert." },
-    { id: "bot", label: "Gegen Bot", description: "Der rechte Schläger wird von einer KI gesteuert." },
+    { id: "2p", label: "2 Spieler", icon: "🧑‍🤝‍🧑", description: "Beide Schläger werden von Menschen gesteuert." },
+    { id: "bot", label: "Gegen Bot", icon: "🤖", description: "Der rechte Schläger wird von einer KI gesteuert." },
   ];
 
   // Schwierigkeitsstufe (id aus PixelPortGameScreens.DIFFICULTIES) -> konkrete Pong-Werte.
@@ -284,6 +284,8 @@
       modes: MODES,
       defaultDifficultyId: 3,
       defaultModeId: "2p",
+      backHref: CATEGORY_URL,
+      backLabel: "← Zurück zu 1990er Spiele",
       onStart: startGame,
     });
   }

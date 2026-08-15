@@ -21,8 +21,8 @@
     "Auf einem 3x3-Feld setzen zwei Spieler abwechselnd ihr Symbol (X oder O) in ein freies Feld. Wer zuerst drei eigene Symbole in einer Reihe hat - waagerecht, senkrecht oder diagonal - gewinnt. Sind alle Felder voll ohne Gewinner, endet die Partie unentschieden.";
 
   const MODES = [
-    { id: "2p", label: "2 Spieler", description: "Beide Seiten werden von Menschen gesteuert." },
-    { id: "bot", label: "Gegen Bot", description: "O wird von einer KI gesteuert, X spielst du." },
+    { id: "2p", label: "2 Spieler", icon: "🧑‍🤝‍🧑", description: "Beide Seiten werden von Menschen gesteuert." },
+    { id: "bot", label: "Gegen Bot", icon: "🤖", description: "O wird von einer KI gesteuert, X spielst du." },
   ];
 
   // Schwierigkeitsstufe (id aus PixelPortGameScreens.DIFFICULTIES) -> Zufallsanteil (0 = perfekte KI).
@@ -247,6 +247,8 @@
       modes: MODES,
       defaultDifficultyId: 3,
       defaultModeId: "2p",
+      backHref: CATEGORY_URL,
+      backLabel: "← Zurück zu Brettspiele",
       onStart: startGame,
     });
   }

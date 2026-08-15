@@ -22,8 +22,8 @@
     "Zwei Spieler steuern Lichtmotorräder, die eine permanente Spur hinter sich herziehen. Fährst du gegen die Wand, deine eigene Spur oder die Spur des Gegners, verlierst du die Runde. Wer zuerst 3 Runden gewinnt, gewinnt das Duell.";
 
   const MODES = [
-    { id: "2p", label: "2 Spieler", description: "Spieler 1 (WASD) gegen Spieler 2 (Pfeiltasten)." },
-    { id: "bot", label: "Gegen Bot", description: "Spieler 2 wird von einer KI gesteuert." },
+    { id: "2p", label: "2 Spieler", icon: "🧑‍🤝‍🧑", description: "Spieler 1 (WASD) gegen Spieler 2 (Pfeiltasten)." },
+    { id: "bot", label: "Gegen Bot", icon: "🤖", description: "Spieler 2 wird von einer KI gesteuert." },
   ];
 
   // Schwierigkeitsstufe (id aus PixelPortGameScreens.DIFFICULTIES) -> konkrete Werte.
@@ -322,6 +322,8 @@
       modes: MODES,
       defaultDifficultyId: 3,
       defaultModeId: "2p",
+      backHref: CATEGORY_URL,
+      backLabel: "← Zurück zum Duell",
       onStart: startGame,
     });
   }

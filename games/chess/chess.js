@@ -21,8 +21,8 @@
     "Zwei Spieler bewegen abwechselnd ihre Figuren auf einem 8x8-Feld, wobei jede Figur eigene Zugregeln hat. Ziel ist es, den gegnerischen König so anzugreifen, dass er nicht mehr entkommen kann (Schachmatt). Zieht eine eigene Figur auf das Feld einer gegnerischen, wird diese geschlagen.";
 
   const MODES = [
-    { id: "2p", label: "2 Spieler", description: "Beide Seiten werden von Menschen gesteuert." },
-    { id: "bot", label: "Gegen Bot", description: "Schwarz wird von einer KI gesteuert, Weiß spielst du." },
+    { id: "2p", label: "2 Spieler", icon: "🧑‍🤝‍🧑", description: "Beide Seiten werden von Menschen gesteuert." },
+    { id: "bot", label: "Gegen Bot", icon: "🤖", description: "Schwarz wird von einer KI gesteuert, Weiß spielst du." },
   ];
 
   // Schwierigkeitsstufe (id aus PixelPortGameScreens.DIFFICULTIES) -> Such­tiefe
@@ -802,6 +802,8 @@
       modes: MODES,
       defaultDifficultyId: 3,
       defaultModeId: "2p",
+      backHref: CATEGORY_URL,
+      backLabel: "← Zurück zu Brettspiele",
       onStart: startGame,
     });
   }

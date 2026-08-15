@@ -51,19 +51,28 @@
 
   /**
    * Rendert eine Gruppe auswählbarer Buttons mit Radio-Verhalten (genau
-   * einer aktiv). Ruft onChange(id) bei jeder Änderung auf.
+   * einer aktiv). Ruft onChange(id) bei jeder Änderung auf. Mit
+   * variant: "mode" werden große, runde Buttons mit Icon + Label gerendert
+   * (für die Modus-Auswahl) statt der kompakten Text-Pills (Schwierigkeit).
    */
-  function renderOptionGroup(container, { legend, options, selectedId, onChange }) {
-    const group = el("div", "game-option-group");
+  function renderOptionGroup(container, { legend, options, selectedId, onChange, variant }) {
+    const group = el("div", "game-option-group" + (variant ? " game-option-group--" + variant : ""));
     group.append(el("h2", "game-option-group__title", legend));
 
     const list = el("div", "game-option-group__options");
     const buttons = options.map((option) => {
-      const btn = el("button", "option-button", option.label);
+      const btn = el("button", "option-button" + (variant === "mode" ? " option-button--mode" : ""));
       btn.type = "button";
       if (option.description) btn.title = option.description;
       btn.setAttribute("aria-pressed", String(option.id === selectedId));
       btn.classList.toggle("is-active", option.id === selectedId);
+
+      if (variant === "mode" && option.icon) {
+        btn.append(el("span", "option-button__icon", option.icon));
+        btn.append(el("span", "option-button__label", option.label));
+      } else {
+        btn.textContent = option.label;
+      }
       return btn;
     });
 
@@ -89,27 +98,50 @@
    *   icon                 optionales Emoji, groß über dem Titel als Maskottchen
    *   intro                optionaler Hinweistext
    *   howToPlay            optionaler Spielerklärungs-Text (siehe renderHowToPlayButton)
-   *   modes                optionales Array [{ id, label, description }]
+   *   modes                optionales Array [{ id, label, description, icon }]
    *   defaultDifficultyId  Standard-Schwierigkeit (Default: 3 = "Mittel")
    *   defaultModeId        Standard-Modus (Default: modes[0].id)
+   *   backHref             optionaler Link zurück zur Kategorie-Seite (Button unten in der Karte)
+   *   backLabel            Beschriftung des Zurück-Buttons
    *   onStart({ difficulty, mode })
+   *
+   * Aufbau: farbiger Kopfbereich (Icon/Titel/Intro) + weiße Karte darunter
+   * mit Howto-Button, Auswahl-Gruppen, Start- und Zurück-Button - siehe
+   * css/game-screens.css für den "2 Player Games"-artigen Look.
    */
   function renderSetup(container, options) {
-    const { gameName, icon, intro, howToPlay, modes, defaultDifficultyId = 3, defaultModeId, onStart } = options;
+    const {
+      gameName,
+      icon,
+      intro,
+      howToPlay,
+      modes,
+      defaultDifficultyId = 3,
+      defaultModeId,
+      backHref,
+      backLabel = "← Zurück zur Kategorie",
+      onStart,
+    } = options;
 
     container.innerHTML = "";
     const wrap = el("div", "game-setup");
-    if (icon) wrap.append(el("div", "game-setup__icon", icon));
-    wrap.append(el("h2", "game-setup__title", `${gameName} starten`));
-    if (intro) wrap.append(el("p", "game-setup__intro", intro));
+
+    const header = el("div", "game-setup__header");
+    if (icon) header.append(el("div", "game-setup__icon", icon));
+    header.append(el("h2", "game-setup__title", `${gameName} starten`));
+    if (intro) header.append(el("p", "game-setup__intro", intro));
+    wrap.appendChild(header);
+
+    const card = el("div", "game-setup__card");
+
     if (howToPlay) {
       const howtoWrap = el("div", "game-setup__howto");
       renderHowToPlayButton(howtoWrap, { gameName, text: howToPlay });
-      wrap.appendChild(howtoWrap);
+      card.appendChild(howtoWrap);
     }
 
     let selectedDifficulty = defaultDifficultyId;
-    renderOptionGroup(wrap, {
+    renderOptionGroup(card, {
       legend: "Schwierigkeitsgrad",
       options: DIFFICULTIES,
       selectedId: defaultDifficultyId,
@@ -120,10 +152,11 @@
 
     let selectedMode = modes && modes.length > 0 ? defaultModeId ?? modes[0].id : null;
     if (modes && modes.length > 0) {
-      renderOptionGroup(wrap, {
+      renderOptionGroup(card, {
         legend: "Spielmodus",
         options: modes,
         selectedId: selectedMode,
+        variant: "mode",
         onChange: (id) => {
           selectedMode = id;
         },
@@ -137,8 +170,15 @@
       const mode = modes ? modes.find((m) => m.id === selectedMode) : null;
       onStart({ difficulty, mode });
     });
-    wrap.appendChild(startBtn);
+    card.appendChild(startBtn);
 
+    if (backHref) {
+      const backBtn = el("a", "game-setup__back", backLabel);
+      backBtn.href = backHref;
+      card.appendChild(backBtn);
+    }
+
+    wrap.appendChild(card);
     container.appendChild(wrap);
   }
 
@@ -163,8 +203,13 @@
 
     container.innerHTML = "";
     const wrap = el("div", "game-result");
-    wrap.append(el("h2", "game-result__title", title));
-    if (message) wrap.append(el("p", "game-result__message", message));
+
+    const header = el("div", "game-result__header");
+    header.append(el("h2", "game-result__title", title));
+    wrap.appendChild(header);
+
+    const card = el("div", "game-result__card");
+    if (message) card.append(el("p", "game-result__message", message));
 
     const actions = el("div", "game-result__actions");
 
@@ -173,11 +218,12 @@
     restartBtn.addEventListener("click", onRestart);
     actions.appendChild(restartBtn);
 
-    const backLink = el("a", "back-link game-result__back", backLabel);
+    const backLink = el("a", "game-setup__back", backLabel);
     backLink.href = backHref;
     actions.appendChild(backLink);
 
-    wrap.appendChild(actions);
+    card.appendChild(actions);
+    wrap.appendChild(card);
     container.appendChild(wrap);
   }
 

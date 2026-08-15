@@ -26,8 +26,8 @@
     "Zwei Spieler bewegen ihre Steine diagonal über ein Schachbrett-Feld. Springt man diagonal über einen gegnerischen Stein und die Landefläche dahinter ist frei, wird dieser geschlagen und entfernt. Wer alle gegnerischen Steine schlägt oder bewegungsunfähig macht, gewinnt. Ist ein Schlagzug möglich, muss geschlagen werden (Schlagzwang).";
 
   const MODES = [
-    { id: "2p", label: "2 Spieler", description: "Beide Seiten werden von Menschen gesteuert." },
-    { id: "bot", label: "Gegen Bot", description: "Schwarz wird von einer KI gesteuert, Weiß spielst du." },
+    { id: "2p", label: "2 Spieler", icon: "🧑‍🤝‍🧑", description: "Beide Seiten werden von Menschen gesteuert." },
+    { id: "bot", label: "Gegen Bot", icon: "🤖", description: "Schwarz wird von einer KI gesteuert, Weiß spielst du." },
   ];
 
   // Schwierigkeitsstufe (id aus PixelPortGameScreens.DIFFICULTIES) -> Suchtiefe + Zufallsanteil.
@@ -447,6 +447,8 @@
       modes: MODES,
       defaultDifficultyId: 3,
       defaultModeId: "2p",
+      backHref: CATEGORY_URL,
+      backLabel: "← Zurück zu Brettspiele",
       onStart: startGame,
     });
   }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PixelPort</title>
+
+  <!-- theme.js so früh wie möglich laden, damit Dark/Bright Mode + Design
+       sofort angewendet werden (kein Flackern beim Start). -->
+  <script src="js/theme.js"></script>
+
+  <link rel="stylesheet" href="css/themes.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html">🕹️ <span>PixelPort</span></a>
+    <a class="icon-button" href="settings.html" aria-label="Einstellungen" title="Einstellungen">⚙️</a>
+  </header>
+
+  <main class="page">
+    <section class="page-intro">
+      <h1>Willkommen bei PixelPort</h1>
+      <p>Wähle eine Kategorie und entdecke die Spiele.</p>
+    </section>
+
+    <!-- Wird per JS aus games-data.js befüllt, siehe js/main.js -->
+    <section id="categories-grid" class="tile-grid" aria-label="Kategorien"></section>
+  </main>
+
+  <footer class="site-footer">
+    <p>PixelPort – dein kleines Spiele-Portal.</p>
+  </footer>
+
+  <script src="js/games-data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

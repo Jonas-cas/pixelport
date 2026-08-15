@@ -1,0 +1,284 @@
+/**
+ * style.css
+ *
+ * Basis-Layout und Komponenten für PixelPort. Farben kommen aus themes.css
+ * (CSS-Variablen) – hier stehen nur Struktur, Abstände und Verhalten.
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ---- Header / Navigation ---- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.logo span {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.back-link {
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: color 0.15s ease;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.icon-button:hover {
+  background: var(--bg-card-hover);
+  transform: rotate(20deg);
+}
+
+/* ---- Seiten-Layout ---- */
+.page {
+  flex: 1;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+.page-intro h1 {
+  margin: 0 0 8px;
+  font-size: 1.8rem;
+}
+
+.page-intro p {
+  margin: 0 0 32px;
+  color: var(--text-secondary);
+}
+
+.site-footer {
+  text-align: center;
+  padding: 24px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ---- Kachel-Grid (Kategorien & Spiele) ---- */
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+a.tile:hover {
+  transform: translateY(-4px);
+  background: var(--bg-card-hover);
+  border-color: var(--accent);
+}
+
+.tile-icon {
+  font-size: 2rem;
+}
+
+.tile-title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.tile-desc {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.tile-count {
+  margin-top: auto;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.game-tile--soon {
+  cursor: default;
+  opacity: 0.85;
+}
+
+.game-tile--soon .badge {
+  background: var(--border);
+  color: var(--text-secondary);
+}
+
+.empty-state {
+  color: var(--text-secondary);
+}
+
+/* ---- Einstellungen ---- */
+.settings-section {
+  margin-bottom: 32px;
+}
+
+.settings-section h2 {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+}
+
+.mode-toggle {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.mode-button {
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  font-weight: 600;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.mode-button.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.theme-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.theme-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  background: var(--bg-card);
+  transition: border-color 0.15s ease;
+}
+
+.theme-swatch.is-active {
+  border-color: var(--accent);
+}
+
+.theme-swatch-preview {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--swatch-a), var(--swatch-b));
+}
+
+.theme-swatch-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.text-button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  text-decoration: underline;
+  padding: 0;
+}
+
+.text-button:hover {
+  color: var(--accent);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 480px) {
+  .site-header {
+    padding: 12px 16px;
+  }
+
+  .page {
+    padding: 24px 16px 48px;
+  }
+
+  .mode-toggle {
+    flex-direction: column;
+  }
+}

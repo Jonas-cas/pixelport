@@ -1,0 +1,59 @@
+/**
+ * themes.css
+ *
+ * Definiert alle Farb-Variablen von PixelPort. Zwei unabhängige Achsen:
+ *   - data-mode  auf <html>: steuert Hintergrund/Text (Dark Mode / Bright Mode)
+ *   - data-theme auf <html>: steuert die Akzentfarben ("Design")
+ * Beide Attribute werden von js/theme.js gesetzt, basierend auf localStorage.
+ */
+
+/* ---- Anzeigemodus ---- */
+:root[data-mode="dark"] {
+  --bg: #12121a;
+  --bg-elevated: #1a1a26;
+  --bg-card: #1e1e2c;
+  --bg-card-hover: #262636;
+  --text: #eceef5;
+  --text-secondary: #a3a6bd;
+  --border: rgba(255, 255, 255, 0.08);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+:root[data-mode="light"] {
+  --bg: #f4f5fb;
+  --bg-elevated: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f0f1fa;
+  --text: #1a1a24;
+  --text-secondary: #5a5c72;
+  --border: rgba(20, 20, 40, 0.1);
+  --shadow: 0 10px 30px rgba(20, 20, 40, 0.08);
+}
+
+/* ---- Farbthemen ("Design") ----
+   Jedes Thema definiert nur Akzentfarben, unabhängig vom Anzeigemodus.
+   Neues Thema: Block ergänzen + Eintrag in js/theme.js (THEMES). */
+:root[data-theme="neon"] {
+  --accent: #a855f7;
+  --accent-2: #22d3ee;
+}
+
+:root[data-theme="ocean"] {
+  --accent: #2563eb;
+  --accent-2: #06b6d4;
+}
+
+:root[data-theme="sunset"] {
+  --accent: #f97316;
+  --accent-2: #ec4899;
+}
+
+:root[data-theme="forest"] {
+  --accent: #22c55e;
+  --accent-2: #84cc16;
+}
+
+:root {
+  --accent-soft: color-mix(in srgb, var(--accent) 16%, transparent);
+  --accent-gradient: linear-gradient(135deg, var(--accent), var(--accent-2));
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kategorie – PixelPort</title>
+
+  <script src="js/theme.js"></script>
+
+  <link rel="stylesheet" href="css/themes.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="index.html">← Startseite</a>
+    <a class="icon-button" href="settings.html" aria-label="Einstellungen" title="Einstellungen">⚙️</a>
+  </header>
+
+  <main class="page">
+    <section class="page-intro">
+      <!-- Titel/Beschreibung werden von js/category.js anhand von ?id=... befüllt -->
+      <h1 id="category-title">Kategorie</h1>
+      <p id="category-desc"></p>
+    </section>
+
+    <section id="games-grid" class="tile-grid" aria-label="Spiele"></section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="back-link" href="index.html">← Zurück zur Startseite</a>
+  </footer>
+
+  <script src="js/games-data.js"></script>
+  <script src="js/category.js"></script>
+</body>
+</html>

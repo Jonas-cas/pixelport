@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Einstellungen – PixelPort</title>
+
+  <script src="js/theme.js"></script>
+
+  <link rel="stylesheet" href="css/themes.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="index.html">← Startseite</a>
+  </header>
+
+  <main class="page">
+    <section class="page-intro">
+      <h1>Einstellungen</h1>
+      <p>Deine Auswahl wird automatisch im Browser gespeichert (localStorage).</p>
+    </section>
+
+    <section class="settings-section">
+      <h2>Anzeigemodus</h2>
+      <div class="mode-toggle" role="group" aria-label="Anzeigemodus">
+        <button type="button" class="mode-button" data-mode-option="dark" aria-pressed="false">🌙 Dark Mode</button>
+        <button type="button" class="mode-button" data-mode-option="light" aria-pressed="false">☀️ Bright Mode</button>
+      </div>
+    </section>
+
+    <section class="settings-section">
+      <h2>Design</h2>
+      <!-- Wird per JS aus PixelPortTheme.THEMES befüllt, siehe js/settings.js -->
+      <div id="theme-options" class="theme-options" role="group" aria-label="Farbthema"></div>
+    </section>
+
+    <section class="settings-section">
+      <button type="button" id="reset-settings" class="text-button">Auf Standard zurücksetzen</button>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="back-link" href="index.html">← Zurück zur Startseite</a>
+  </footer>
+
+  <script src="js/settings.js"></script>
+</body>
+</html>

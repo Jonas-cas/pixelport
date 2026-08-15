@@ -502,6 +502,7 @@
   function initSetup() {
     PixelPortGameScreens.renderSetup(setupScreen, {
       gameName: "Mau Mau",
+      icon: "🃏",
       intro: "Wähle Schwierigkeit und Anzahl der Bots, um zu starten.",
       howToPlay: HOW_TO_PLAY,
       modes: MODES,

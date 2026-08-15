@@ -74,6 +74,10 @@
     titleEl.textContent = `${category.icon} ${category.name}`;
     descEl.textContent = category.description;
 
+    // Helle Kategorien (Brettspiele, Kartenspiele) bekommen größere,
+    // verspieltere Kacheln-Icons - siehe css/game-theme-light.css.
+    grid.classList.toggle("tile-grid--playful", category.theme === "light");
+
     grid.innerHTML = "";
     if (category.games.length === 0) {
       grid.innerHTML = '<p class="empty-state">Für diese Kategorie sind noch keine Spiele hinterlegt.</p>';

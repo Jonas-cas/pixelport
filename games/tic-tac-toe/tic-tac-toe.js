@@ -238,6 +238,7 @@
   function initSetup() {
     PixelPortGameScreens.renderSetup(setupScreen, {
       gameName: "Tic-Tac-Toe",
+      icon: "❌",
       intro: "Wähle Schwierigkeit und Spielmodus, um zu starten.",
       howToPlay: HOW_TO_PLAY,
       modes: MODES,

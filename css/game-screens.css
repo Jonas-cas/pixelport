@@ -31,6 +31,12 @@
   box-shadow: var(--shadow);
 }
 
+.game-setup__icon {
+  align-self: center;
+  font-size: 3.4rem;
+  line-height: 1;
+}
+
 .game-setup__title {
   margin: 0;
   font-size: 1.3rem;

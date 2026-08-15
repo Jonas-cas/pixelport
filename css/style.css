@@ -220,6 +220,30 @@ a.tile:active {
   filter: grayscale(35%);
 }
 
+/* ---- Verspielte Kacheln für helle Kategorien (Brettspiele, Kartenspiele) ----
+   Aktiviert via js/category.js, wenn die Kategorie theme:"light" trägt
+   (games-data.js). Größere "Maskottchen"-Icons statt kleiner Symbole,
+   dickerer, farbiger Rahmen - passend zum Look der Spiel-Bildschirme
+   selbst (css/game-theme-light.css). */
+.tile-grid--playful .tile {
+  border-width: 2.5px;
+  border-radius: 20px;
+}
+
+.tile-grid--playful .tile-icon {
+  font-size: 3.2rem;
+  filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.22));
+  transition: transform 0.2s ease;
+}
+
+.tile-grid--playful a.tile:hover .tile-icon {
+  transform: scale(1.15) rotate(-4deg);
+}
+
+.tile-grid--playful a.tile:hover {
+  border-color: var(--accent);
+}
+
 .game-tile--soon .badge {
   background: var(--border);
   color: var(--text-secondary);

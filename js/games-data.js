@@ -6,7 +6,10 @@
  * (Startseite + Kategorie-Seite) rendert daraus automatisch die Kacheln.
  *
  * Neue Kategorie hinzufügen:
- *   -> neues Objekt in GAME_CATEGORIES anlegen.
+ *   -> neues Objekt in GAME_CATEGORIES anlegen. Optionales Feld
+ *      theme: "light" markiert eine Kategorie als hell/verspielt
+ *      (größere, "knuffigere" Kacheln auf der Kategorie-Seite,
+ *      siehe js/category.js) - weglassen für den normalen dunklen Look.
  *
  * Neues Spiel hinzufügen:
  *   -> neues Objekt in das "games"-Array der passenden Kategorie einfügen.
@@ -32,6 +35,7 @@ const GAME_CATEGORIES = [
     id: "brettspiele-digital",
     name: "Brettspiele (digital)",
     icon: "🎲",
+    theme: "light",
     description: "Klassische Brettspiele digital umgesetzt.",
     games: [
       {
@@ -139,6 +143,7 @@ const GAME_CATEGORIES = [
     id: "kartenspiele",
     name: "Kartenspiele",
     icon: "🃏",
+    theme: "light",
     description: "Klassische Kartenspiele für zwischendurch.",
     games: [
       {

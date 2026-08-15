@@ -796,6 +796,7 @@
   function initSetup() {
     PixelPortGameScreens.renderSetup(setupScreen, {
       gameName: "Schach",
+      icon: "♟️",
       intro: "Wähle Schwierigkeit und Spielmodus, um zu starten.",
       howToPlay: HOW_TO_PLAY,
       modes: MODES,

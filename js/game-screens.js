@@ -86,6 +86,7 @@
   /**
    * options:
    *   gameName            Anzeigename für die Überschrift
+   *   icon                 optionales Emoji, groß über dem Titel als Maskottchen
    *   intro                optionaler Hinweistext
    *   howToPlay            optionaler Spielerklärungs-Text (siehe renderHowToPlayButton)
    *   modes                optionales Array [{ id, label, description }]
@@ -94,10 +95,11 @@
    *   onStart({ difficulty, mode })
    */
   function renderSetup(container, options) {
-    const { gameName, intro, howToPlay, modes, defaultDifficultyId = 3, defaultModeId, onStart } = options;
+    const { gameName, icon, intro, howToPlay, modes, defaultDifficultyId = 3, defaultModeId, onStart } = options;
 
     container.innerHTML = "";
     const wrap = el("div", "game-setup");
+    if (icon) wrap.append(el("div", "game-setup__icon", icon));
     wrap.append(el("h2", "game-setup__title", `${gameName} starten`));
     if (intro) wrap.append(el("p", "game-setup__intro", intro));
     if (howToPlay) {

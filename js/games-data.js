@@ -231,8 +231,8 @@ const GAME_CATEGORIES = [
         id: "solitaire",
         name: "Solitär",
         icon: "🂡",
-        available: false,
-        url: null,
+        available: true,
+        url: "games/solitaire/index.html",
         howToPlay:
           "Du sortierst Spielkarten in absteigender Reihenfolge und abwechselnder Farbe auf mehreren Tableau-Stapeln. Ziel ist es, alle Karten nach Farbe sortiert von Ass bis König auf vier Ablage-Stapel zu legen. Der Nachziehstapel hilft dir, wenn du im Tableau nicht mehr weiterkommst.",
       },

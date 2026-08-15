@@ -293,8 +293,8 @@ const GAME_CATEGORIES = [
         id: "air-hockey",
         name: "Air Hockey",
         icon: "🏒",
-        available: false,
-        url: null,
+        available: true,
+        url: "games/air-hockey/index.html",
         howToPlay:
           "Ein Puck wird zwischen zwei frei beweglichen Schlägern hin- und hergeschossen. Ihr bewegt eure Schläger in alle Richtungen, um den Puck ins gegnerische Tor zu befördern und das eigene zu verteidigen. Wer zuerst eine festgelegte Punktzahl erreicht, gewinnt.",
       },

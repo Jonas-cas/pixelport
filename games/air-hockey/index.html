@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Air Hockey – PixelPort</title>
+
+  <script src="../../js/theme.js"></script>
+
+  <link rel="stylesheet" href="../../css/themes.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/game-screens.css" />
+  <link rel="stylesheet" href="air-hockey.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="../../category.html?id=duell-wasd-pfeiltasten">← Duell</a>
+    <a class="icon-button" href="../../settings.html" aria-label="Einstellungen" title="Einstellungen">⚙️</a>
+  </header>
+
+  <main class="page game-page">
+    <section class="page-intro">
+      <h1>🏒 Air Hockey</h1>
+    </section>
+
+    <div class="game-root">
+      <!-- Vorbildschirm: Schwierigkeit + Modus, wird von game-screens.js befüllt -->
+      <section id="setup-screen" class="game-screen"></section>
+
+      <!-- Eigentliches Spiel -->
+      <section id="play-screen" class="game-screen" hidden>
+        <div class="game-hud">
+          <span id="score-left">0</span>
+          <span class="game-hud__divider">:</span>
+          <span id="score-right">0</span>
+        </div>
+        <canvas id="ah-canvas" width="800" height="480"></canvas>
+        <p id="game-hint" class="game-hint"></p>
+      </section>
+
+      <!-- Ergebnis-Bildschirm, wird von game-screens.js befüllt -->
+      <section id="result-screen" class="game-screen" hidden></section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <a class="back-link" href="../../category.html?id=duell-wasd-pfeiltasten">← Zurück zum Duell</a>
+  </footer>
+
+  <script src="../../js/game-screens.js"></script>
+  <script src="air-hockey.js"></script>
+</body>
+</html>

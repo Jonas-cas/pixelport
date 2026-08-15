@@ -1,0 +1,24 @@
+/**
+ * air-hockey.css
+ *
+ * Spielspezifische Styles für Air Hockey. Layout/Setup/Ergebnis-Bildschirm
+ * kommen bereits aus css/game-screens.css - hier steht nur die Canvas-Darstellung.
+ */
+
+#play-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#ah-canvas {
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  aspect-ratio: 5 / 3;
+  background: var(--bg-elevated);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  touch-action: none;
+}

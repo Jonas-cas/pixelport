@@ -190,6 +190,15 @@ const GAME_CATEGORIES = [
         howToPlay:
           "Zwei Spieler steuern Lichtmotorräder, die eine permanente Spur hinter sich herziehen. Fährst du gegen die Wand, deine eigene Spur oder die Spur des Gegners, verlierst du die Runde. Wer zuerst 3 Runden gewinnt, gewinnt das Duell.",
       },
+      {
+        id: "panzer-duell",
+        name: "Panzer-Duell",
+        icon: "🎯",
+        available: true,
+        url: "games/panzer-duell/index.html",
+        howToPlay:
+          "Zwei Panzer treten auf einem Feld mit Hindernissen gegeneinander an. Spieler 1 steuert mit WASD und schießt mit der Leertaste, Spieler 2 mit den Pfeiltasten und schießt mit Enter oder Strg. Trefft ihr den gegnerischen Panzer, gewinnt ihr die Runde - weicht dabei Hindernissen und gegnerischen Schüssen aus. Wer zuerst 3 Runden gewinnt, gewinnt das Duell.",
+      },
     ],
   },
 ];

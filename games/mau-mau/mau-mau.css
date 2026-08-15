@@ -63,8 +63,8 @@
 /* ---- Karten: klassische Spielkarten-Optik mit Eckwerten ---- */
 .mm-card {
   position: relative;
-  width: 64px;
-  height: 92px;
+  width: 88px;
+  height: 128px;
   border-radius: 8px;
   background: #fffdf7;
   border: 1px solid rgba(0, 0, 0, 0.18);
@@ -86,31 +86,31 @@
 
 .mm-card__corner {
   position: absolute;
-  top: 4px;
-  left: 5px;
+  top: 6px;
+  left: 7px;
   display: flex;
   flex-direction: column;
   align-items: center;
   line-height: 1;
   font-weight: 800;
-  font-size: 0.85rem;
+  font-size: 1.05rem;
 }
 
 .mm-card__corner--bottom {
   top: auto;
-  bottom: 4px;
-  right: 5px;
+  bottom: 6px;
+  right: 7px;
   left: auto;
   transform: rotate(180deg);
 }
 
 .mm-card__corner-suit {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   margin-top: 1px;
 }
 
 .mm-card__pip {
-  font-size: 1.9rem;
+  font-size: 2.6rem;
 }
 
 .mm-card--back {
@@ -224,12 +224,12 @@
 
 @media (max-width: 480px) {
   .mm-card {
-    width: 52px;
-    height: 76px;
+    width: 58px;
+    height: 84px;
   }
 
   .mm-card__pip {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
   }
 
   .mm-center {

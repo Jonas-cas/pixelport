@@ -30,7 +30,7 @@
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
   width: 100%;
-  max-width: 480px;
+  max-width: 660px;
   aspect-ratio: 1;
   border: 4px solid #6b4226;
   border-radius: 10px;
@@ -88,7 +88,7 @@
 }
 
 .chess-piece {
-  font-size: clamp(1.6rem, 6vw, 2.6rem);
+  font-size: clamp(1.6rem, 7vw, 3.4rem);
   line-height: 1;
   user-select: none;
   filter: drop-shadow(0 3px 1px rgba(0, 0, 0, 0.3));

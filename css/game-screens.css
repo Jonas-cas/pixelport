@@ -16,10 +16,19 @@
  * während des Spiels bekommen.
  */
 
+/* Spielseiten dürfen deutlich breiter sein als normale Inhaltsseiten
+   (css/style.css .page ist auf 960px begrenzt) - die Spielfläche soll
+   den verfügbaren Platz möglichst fast bildschirmfüllend ausnutzen statt
+   in einer kleinen, zentrierten Box zu stecken. */
+.game-page {
+  max-width: 1280px;
+}
+
 .game-root {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .game-screen[hidden] {

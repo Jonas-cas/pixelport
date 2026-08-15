@@ -68,8 +68,8 @@
 /* ---- Karten ---- */
 .uno-card {
   position: relative;
-  width: 64px;
-  height: 92px;
+  width: 88px;
+  height: 128px;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -109,7 +109,7 @@
 .uno-card__label {
   transform: rotate(20deg);
   font-weight: 900;
-  font-size: 1.5rem;
+  font-size: 2.1rem;
   color: var(--uno-card-color, #23212b);
 }
 
@@ -119,18 +119,18 @@
 
 .uno-card__corner {
   position: absolute;
-  top: 5px;
-  left: 6px;
+  top: 7px;
+  left: 8px;
   font-weight: 800;
-  font-size: 0.85rem;
+  font-size: 1.1rem;
   line-height: 1;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
 }
 
 .uno-card__corner--bottom {
   top: auto;
-  bottom: 5px;
-  right: 6px;
+  bottom: 7px;
+  right: 8px;
   left: auto;
   transform: rotate(180deg);
 }
@@ -248,12 +248,12 @@
 
 @media (max-width: 480px) {
   .uno-card {
-    width: 52px;
-    height: 76px;
+    width: 58px;
+    height: 84px;
   }
 
   .uno-card__label {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
 
   .uno-center {

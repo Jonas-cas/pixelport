@@ -329,8 +329,8 @@ const GAME_CATEGORIES = [
         id: "shut-the-box",
         name: "Shut the Box",
         icon: "📦",
-        available: false,
-        url: null,
+        available: true,
+        url: "games/shut-the-box/index.html",
         howToPlay:
           "Auf einem Feld liegen Zahlenklappen von 1 bis 9. Du würfelst und schließt eine Kombination offener Klappen, deren Summe der Würfelzahl entspricht. Kannst du keine passende Kombination mehr bilden, endet dein Zug - deine offene Zahlensumme zählt als Minuspunkte. Ziel ist es, möglichst wenige oder gar keine Klappen übrig zu behalten.",
       },

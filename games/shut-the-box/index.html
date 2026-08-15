@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shut the Box – PixelPort</title>
+
+  <script src="../../js/theme.js"></script>
+
+  <link rel="stylesheet" href="../../css/themes.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/game-screens.css" />
+  <link rel="stylesheet" href="../../css/game-theme-light.css" />
+  <link rel="stylesheet" href="shut-the-box.css" />
+</head>
+<!-- data-game-theme="light": Würfel- & Partyspiele bekommen den hellen,
+     farbenfrohen Look (css/game-theme-light.css), unabhängig vom
+     Dark-/Bright-Mode. -->
+<body data-game-theme="light">
+  <header class="site-header">
+    <a class="back-link" href="../../category.html?id=wuerfel-partyspiele">← Würfel- & Partyspiele</a>
+    <a class="icon-button" href="../../settings.html" aria-label="Einstellungen" title="Einstellungen">⚙️</a>
+  </header>
+
+  <main class="page game-page">
+    <section class="page-intro">
+      <h1>📦 Shut the Box</h1>
+    </section>
+
+    <div class="game-root">
+      <!-- Vorbildschirm: Schwierigkeit + Modus, wird von game-screens.js befüllt -->
+      <section id="setup-screen" class="game-screen"></section>
+
+      <!-- Eigentliches Spiel -->
+      <section id="play-screen" class="game-screen game-play-panel stb-play" hidden>
+        <p id="stb-status" class="stb-status status-pill"></p>
+        <div id="stb-scoreboard" class="stb-scoreboard"></div>
+
+        <div id="stb-flaps" class="stb-flaps"></div>
+
+        <div class="stb-dice-row">
+          <div id="stb-dice" class="stb-dice"></div>
+          <p id="stb-target" class="stb-target"></p>
+        </div>
+
+        <div class="stb-actions">
+          <button id="stb-roll" type="button" class="game-setup__start">🎲 Würfeln</button>
+          <button id="stb-confirm" type="button" class="game-setup__start stb-confirm" hidden>✔ Bestätigen</button>
+          <button id="stb-reset-selection" type="button" class="howto-button" hidden>Auswahl zurücksetzen</button>
+        </div>
+      </section>
+
+      <!-- Ergebnis-Bildschirm, wird von game-screens.js befüllt -->
+      <section id="result-screen" class="game-screen" hidden></section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <a class="back-link" href="../../category.html?id=wuerfel-partyspiele">← Zurück zu Würfel- & Partyspiele</a>
+  </footer>
+
+  <script src="../../js/game-screens.js"></script>
+  <script src="shut-the-box.js"></script>
+</body>
+</html>

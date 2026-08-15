@@ -1,0 +1,160 @@
+/**
+ * shut-the-box.css
+ *
+ * Spielspezifische Styles für Shut the Box. Panel/Setup/Ergebnis kommen
+ * bereits aus css/game-screens.css + css/game-theme-light.css - hier
+ * stehen nur die Zahlenklappen und Würfel.
+ */
+
+.stb-play {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.stb-scoreboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.stb-score {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #fff;
+  border: 2.5px solid #e7ddc8;
+  color: #2c2a24;
+  font-weight: 700;
+}
+
+.stb-score.is-active {
+  border-color: color-mix(in srgb, var(--accent) 70%, black);
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--accent) 70%, black);
+}
+
+.stb-flaps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 620px;
+}
+
+.stb-flap {
+  width: 60px;
+  height: 84px;
+  border-radius: 12px;
+  background: #eab308;
+  border: 3px solid #a16207;
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 0 #a16207, 0 8px 14px rgba(0, 0, 0, 0.18);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.15s ease;
+}
+
+.stb-flap.is-closed {
+  background: #d9d0bb;
+  border-color: #b9ac8c;
+  color: #a89a78;
+  box-shadow: none;
+  transform: translateY(2px) rotateX(35deg);
+  cursor: default;
+}
+
+.stb-flap.is-selectable {
+  cursor: pointer;
+}
+
+.stb-flap.is-selectable:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+}
+
+.stb-flap.is-selected {
+  background: #16a34a;
+  border-color: #0f6e33;
+  box-shadow: 0 4px 0 #0f6e33, 0 8px 14px rgba(0, 0, 0, 0.18);
+}
+
+.stb-dice-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-height: 60px;
+}
+
+.stb-dice {
+  display: flex;
+  gap: 12px;
+}
+
+.stb-die {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: #fff;
+  border: 3px solid #2c2a24;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  padding: 7px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.stb-die__pip {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2c2a24;
+  align-self: center;
+  justify-self: center;
+}
+
+.stb-target {
+  margin: 0;
+  font-weight: 700;
+  color: #6b6355;
+}
+
+.stb-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+
+.stb-confirm {
+  background: #16a34a;
+  box-shadow: 0 5px 0 #0f6e33, 0 10px 18px rgba(0, 0, 0, 0.2);
+}
+
+.stb-confirm:active {
+  box-shadow: 0 2px 0 #0f6e33, 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+.stb-confirm:disabled {
+  opacity: 0.5;
+  cursor: default;
+  filter: grayscale(40%);
+}
+
+@media (max-width: 480px) {
+  .stb-flap {
+    width: 46px;
+    height: 66px;
+    font-size: 1.4rem;
+  }
+}

@@ -338,8 +338,8 @@ const GAME_CATEGORIES = [
         id: "mensch-aergere-dich-nicht",
         name: "Mensch-ärgere-dich-nicht",
         icon: "🔴🔵🟡🟢",
-        available: false,
-        url: null,
+        available: true,
+        url: "games/mensch-aergere-dich-nicht/index.html",
         howToPlay:
           "Bis zu vier Spieler würfeln reihum und bewegen ihre vier Spielfiguren vom Startfeld über die Runde bis in ihr Zielhaus. Landest du auf dem Feld einer gegnerischen Figur, wird diese rausgeworfen und muss von vorne starten. Wer zuerst alle vier Figuren sicher im Ziel hat, gewinnt.",
       },

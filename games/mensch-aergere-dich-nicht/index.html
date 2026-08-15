@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mensch-ärgere-dich-nicht – PixelPort</title>
+
+  <script src="../../js/theme.js"></script>
+
+  <link rel="stylesheet" href="../../css/themes.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/game-screens.css" />
+  <link rel="stylesheet" href="../../css/game-theme-light.css" />
+  <link rel="stylesheet" href="mensch-aergere-dich-nicht.css" />
+</head>
+<!-- data-game-theme="light": Würfel- & Partyspiele bekommen den hellen,
+     farbenfrohen Look (css/game-theme-light.css), unabhängig vom
+     Dark-/Bright-Mode. -->
+<body data-game-theme="light">
+  <header class="site-header">
+    <a class="back-link" href="../../category.html?id=wuerfel-partyspiele">← Würfel- & Partyspiele</a>
+    <a class="icon-button" href="../../settings.html" aria-label="Einstellungen" title="Einstellungen">⚙️</a>
+  </header>
+
+  <main class="page game-page">
+    <section class="page-intro">
+      <h1>🔴🔵🟡🟢 Mensch-ärgere-dich-nicht</h1>
+    </section>
+
+    <div class="game-root">
+      <!-- Vorbildschirm: Schwierigkeit + Modus, wird von game-screens.js befüllt -->
+      <section id="setup-screen" class="game-screen"></section>
+
+      <!-- Eigentliches Spiel -->
+      <section id="play-screen" class="game-screen game-play-panel mad-play" hidden>
+        <p id="mad-status" class="mad-status status-pill"></p>
+        <div id="mad-scoreboard" class="mad-scoreboard"></div>
+
+        <div class="mad-board-wrap">
+          <div id="mad-board" class="mad-board"></div>
+        </div>
+
+        <div class="mad-actions">
+          <button id="mad-roll" type="button" class="game-setup__start">🎲 Würfeln</button>
+        </div>
+      </section>
+
+      <!-- Ergebnis-Bildschirm, wird von game-screens.js befüllt -->
+      <section id="result-screen" class="game-screen" hidden></section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <a class="back-link" href="../../category.html?id=wuerfel-partyspiele">← Zurück zu Würfel- & Partyspiele</a>
+  </footer>
+
+  <script src="../../js/game-screens.js"></script>
+  <script src="mensch-aergere-dich-nicht.js"></script>
+</body>
+</html>

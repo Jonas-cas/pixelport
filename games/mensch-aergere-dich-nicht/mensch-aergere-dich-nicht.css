@@ -1,0 +1,170 @@
+/**
+ * mensch-aergere-dich-nicht.css
+ *
+ * Spielspezifische Styles für Mensch-ärgere-dich-nicht. Panel/Setup/
+ * Ergebnis kommen bereits aus css/game-screens.css + css/game-theme-light.css
+ * - hier steht nur das Spielbrett.
+ *
+ * Das Brett ist als Kreis aufgebaut statt als exaktes Nachbauen des
+ * eckigen Kreuz-Bretts: 40 Ringfelder (gemeinsame Laufstrecke), pro
+ * Spieler 4 Zielfeld-Zellen, die vom Ring nach innen zur Mitte führen,
+ * und 4 Startplätze am Rand - farblich klar den vier Spielern (Rot/
+ * Blau/Gelb/Grün) zugeordnet, wie beim echten Brett. Alle Positionen
+ * werden per JS in Prozent-Koordinaten gesetzt, damit das Brett auf
+ * jeder Bildschirmgröße responsiv skaliert.
+ */
+
+.mad-play {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+}
+
+.mad-scoreboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.mad-player-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #fff;
+  border: 2.5px solid #e7ddc8;
+  color: #2c2a24;
+  font-weight: 700;
+}
+
+.mad-player-pill.is-active {
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+.mad-player-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.mad-board-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.mad-board {
+  position: relative;
+  width: min(620px, 94vw);
+  aspect-ratio: 1;
+  background: #fdf6ea;
+  border: 4px solid #cbbfa0;
+  border-radius: 50%;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+}
+
+.mad-cell {
+  position: absolute;
+  width: 6.4%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #e7ddc8;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mad-cell--home {
+  opacity: 0.9;
+}
+
+.mad-start-slot {
+  position: absolute;
+  width: 6.8%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2.5px dashed;
+  opacity: 0.55;
+  transform: translate(-50%, -50%);
+}
+
+.mad-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+}
+
+.mad-piece {
+  position: absolute;
+  width: 5.2%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  box-shadow: inset 0 3px 4px rgba(255, 255, 255, 0.35), inset 0 -3px 5px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(0, 0, 0, 0.25);
+}
+
+.mad-piece.is-movable {
+  cursor: pointer;
+  box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--accent), inset 0 3px 4px rgba(255, 255, 255, 0.35);
+  animation: mad-piece-pulse 1.1s ease-in-out infinite;
+}
+
+@keyframes mad-piece-pulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mad-piece.is-movable {
+    animation: none;
+  }
+}
+
+.mad-color--red {
+  background: #dc2626;
+  border-color: #dc2626;
+}
+
+.mad-color--blue {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+.mad-color--yellow {
+  background: #eab308;
+  border-color: #eab308;
+}
+
+.mad-color--green {
+  background: #16a34a;
+  border-color: #16a34a;
+}
+
+.mad-actions {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .mad-center {
+    font-size: 1.4rem;
+  }
+}

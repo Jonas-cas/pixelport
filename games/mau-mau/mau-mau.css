@@ -1,9 +1,14 @@
 /**
  * mau-mau.css
  *
- * Spielspezifische Styles für Mau Mau. Layout/Setup/Ergebnis-Bildschirm
- * kommen bereits aus css/game-screens.css - hier steht die Karten- und
- * Tisch-Darstellung (kein Canvas, reines HTML/CSS).
+ * Spielspezifische Styles für Mau Mau. Layout/Setup/Ergebnis-Bildschirm +
+ * der helle Seiten-Skin kommen bereits aus css/game-screens.css und
+ * css/game-theme-light.css (kein Canvas, reines HTML/CSS).
+ *
+ * Farben hier sind bewusst fest (nicht themeabhängig) - ein Kartendeck
+ * hat schließlich auch keinen Dark Mode. Die Design-Theme-Akzentfarbe
+ * kommt trotzdem durch (Gegner-Hervorhebung, Nachziehstapel-Rahmen,
+ * Farbwunsch-Badge, Status-Pille).
  */
 
 .mm-table {
@@ -12,6 +17,14 @@
   align-items: center;
   gap: 24px;
   width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 28px 20px 32px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-top: 5px solid var(--accent);
+  border-radius: 20px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
 }
 
 /* ---- Gegner-Anzeige ---- */
@@ -28,8 +41,9 @@
   gap: 8px;
   padding: 8px 14px;
   border-radius: 12px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: #fbf5e7;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #2c2a24;
   transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
@@ -44,25 +58,21 @@
 
 .mm-opponent-count {
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: #8a8171;
 }
 
-/* ---- Karten ---- */
+/* ---- Karten: klassische Spielkarten-Optik mit Eckwerten ---- */
 .mm-card {
-  width: 62px;
-  height: 88px;
+  position: relative;
+  width: 64px;
+  height: 92px;
   border-radius: 8px;
-  background: #f8f5ec;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  background: #fffdf7;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-weight: 800;
-  font-size: 1.15rem;
-  line-height: 1.1;
-  color: #1a1a24;
   user-select: none;
   flex-shrink: 0;
 }
@@ -72,11 +82,41 @@
 }
 
 .mm-card--black {
-  color: #1a1a24;
+  color: #23212b;
+}
+
+.mm-card__corner {
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.mm-card__corner--bottom {
+  top: auto;
+  bottom: 4px;
+  right: 5px;
+  left: auto;
+  transform: rotate(180deg);
+}
+
+.mm-card__corner-suit {
+  font-size: 0.75rem;
+  margin-top: 1px;
+}
+
+.mm-card__pip {
+  font-size: 1.9rem;
 }
 
 .mm-card--back {
   background: var(--accent-gradient);
+  border-color: rgba(0, 0, 0, 0.15);
 }
 
 /* ---- Nachzieh-/Ablagestapel ---- */
@@ -95,13 +135,13 @@
 
 .mm-pile-count {
   font-size: 0.8rem;
-  color: var(--text-secondary);
+  color: #8a8171;
   font-weight: 600;
 }
 
 #mm-draw-pile.is-active {
   cursor: pointer;
-  box-shadow: 0 0 0 3px var(--accent), 0 6px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 3px var(--accent), 0 6px 16px rgba(0, 0, 0, 0.25);
   transition: transform 0.15s ease;
 }
 
@@ -119,13 +159,7 @@
   white-space: nowrap;
 }
 
-/* ---- Status & Farbwunsch ---- */
-.mm-status {
-  font-weight: 600;
-  min-height: 1.4em;
-  text-align: center;
-}
-
+/* ---- Farbwunsch ---- */
 .mm-suit-picker {
   display: flex;
   gap: 10px;
@@ -136,8 +170,8 @@
   height: 52px;
   border-radius: 12px;
   font-size: 1.5rem;
-  border: 1px solid var(--border);
-  background: var(--bg-card);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #fbf5e7;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -155,7 +189,7 @@
 }
 
 .mm-suit-button--black {
-  color: #1a1a24;
+  color: #23212b;
 }
 
 /* ---- Hand des Menschen ---- */
@@ -164,14 +198,14 @@
   gap: 8px;
   flex-wrap: wrap;
   justify-content: center;
-  min-height: 96px;
+  min-height: 100px;
   width: 100%;
 }
 
 .mm-hand .mm-card {
   cursor: default;
-  opacity: 0.5;
-  filter: grayscale(40%);
+  opacity: 0.45;
+  filter: grayscale(55%);
   transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -183,14 +217,17 @@
 
 .mm-hand .mm-card.is-playable:hover {
   transform: translateY(-8px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 0 2px var(--accent);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25), 0 0 0 2px var(--accent);
 }
 
 @media (max-width: 480px) {
   .mm-card {
-    width: 50px;
-    height: 72px;
-    font-size: 0.95rem;
+    width: 52px;
+    height: 76px;
+  }
+
+  .mm-card__pip {
+    font-size: 1.5rem;
   }
 
   .mm-center {

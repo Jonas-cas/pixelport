@@ -363,15 +363,33 @@
 
   // ---- Rendering ----
 
+  /**
+   * Baut das Aussehen einer echten Spielkarte: Eckwert oben links
+   * (Rang + Farbe), derselbe Eckwert gespiegelt unten rechts, und ein
+   * großes Farbsymbol in der Mitte - klassische Karten-Optik statt
+   * einer abstrakten Farbfläche mit Buchstabe.
+   */
   function renderCardFace(el, card) {
     el.className = "mm-card " + (isRed(card.suit) ? "mm-card--red" : "mm-card--black");
     el.textContent = "";
-    const rank = document.createElement("span");
-    rank.textContent = card.rank;
-    const suit = document.createElement("span");
-    suit.textContent = card.suit;
-    suit.style.fontSize = "1.4rem";
-    el.append(rank, suit);
+
+    function makeCorner(extraClass) {
+      const corner = document.createElement("span");
+      corner.className = "mm-card__corner" + (extraClass ? " " + extraClass : "");
+      const rank = document.createElement("span");
+      rank.textContent = card.rank;
+      const suit = document.createElement("span");
+      suit.className = "mm-card__corner-suit";
+      suit.textContent = card.suit;
+      corner.append(rank, suit);
+      return corner;
+    }
+
+    const pip = document.createElement("span");
+    pip.className = "mm-card__pip";
+    pip.textContent = card.suit;
+
+    el.append(makeCorner(), pip, makeCorner("mm-card__corner--bottom"));
   }
 
   function render() {

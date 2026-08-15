@@ -1,0 +1,149 @@
+/**
+ * game-theme-light.css
+ *
+ * Optionaler heller, farbenfroher Skin für Brett- und Kartenspiele
+ * (aktuell Schach, Mau Mau - künftig z.B. Vier Gewinnt, Tic-Tac-Toe,
+ * Dame, Solitaire). Aktiviert durch das Attribut data-game-theme="light"
+ * auf <body>, UNABHÄNGIG vom Dark-/Bright-Mode-Setting - so wie ein
+ * echtes Brett oder Kartendeck auch keinen eigenen Dark Mode hat.
+ *
+ * Retro-Arcade-Spiele (Pong, Breakout, Tron-Duell, ...) binden diese
+ * Datei NICHT ein und bleiben unverändert beim dunklen CRT-Look.
+ *
+ * Die Design-Theme-Akzentfarbe (Neon/Ocean/Sunset/Forest aus den
+ * Settings) bleibt aktiv - nur der Dark-/Bright-Mode-Hintergrund wird
+ * hier durch feste, warme Töne ersetzt.
+ *
+ * Neues helles Spiel anbinden:
+ *   1. <body data-game-theme="light"> setzen
+ *   2. Dieses Stylesheet zusätzlich zu css/game-screens.css einbinden
+ *      (nach game-screens.css, vor dem spielspezifischen CSS)
+ *   3. Für Punktestand/Status die Klasse "status-pill" verwenden
+ */
+
+body[data-game-theme="light"] {
+  background: #fdf7ea;
+  color: #2c2a24;
+}
+
+body[data-game-theme="light"] .site-header,
+body[data-game-theme="light"] .site-footer {
+  background: #fdf7ea;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+body[data-game-theme="light"] .back-link {
+  color: #78705f;
+}
+
+body[data-game-theme="light"] .back-link:hover {
+  color: var(--accent);
+}
+
+body[data-game-theme="light"] .icon-button {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #2c2a24;
+}
+
+body[data-game-theme="light"] .icon-button:hover {
+  background: #fff8ea;
+}
+
+body[data-game-theme="light"] .page-intro h1,
+body[data-game-theme="light"] .page-intro p {
+  color: #2c2a24;
+}
+
+/* ---- Setup-/Ergebnis-Bildschirm (js/game-screens.js) ---- */
+
+body[data-game-theme="light"] .game-setup,
+body[data-game-theme="light"] .game-result {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  border-top: 5px solid var(--accent);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+}
+
+body[data-game-theme="light"] .game-setup__title,
+body[data-game-theme="light"] .game-result__title {
+  color: #2c2a24;
+}
+
+body[data-game-theme="light"] .game-setup__intro,
+body[data-game-theme="light"] .game-result__message,
+body[data-game-theme="light"] .game-option-group__title {
+  color: #78705f;
+}
+
+body[data-game-theme="light"] .option-button {
+  background: #fbf5e7;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #2c2a24;
+}
+
+body[data-game-theme="light"] .option-button.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+body[data-game-theme="light"] .howto-button {
+  background: #fbf5e7;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #78705f;
+}
+
+body[data-game-theme="light"] .howto-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+body[data-game-theme="light"] .game-hint {
+  color: #8a8171;
+}
+
+body[data-game-theme="light"] .game-hint kbd {
+  background: #fbf5e7;
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #2c2a24;
+}
+
+/* HUD (falls ein helles Spiel das gemeinsame Punktestand-Layout nutzt) */
+body[data-game-theme="light"] .game-hud {
+  color: #2c2a24;
+}
+
+body[data-game-theme="light"] .game-hud__divider {
+  color: #a89f8c;
+}
+
+/* ---- "Wie spiele ich das?"-Overlay ---- */
+
+body[data-game-theme="light"] .pp-modal__box {
+  background: #fffdf7;
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #2c2a24;
+}
+
+body[data-game-theme="light"] .pp-modal__text {
+  color: #6b6355;
+}
+
+body[data-game-theme="light"] .pp-modal__close {
+  background: #fbf5e7;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #2c2a24;
+}
+
+/* ---- Wiederverwendbare, bunte Status-/Punktestand-Pille ---- */
+.status-pill {
+  display: inline-block;
+  align-self: center;
+  padding: 8px 22px;
+  border-radius: 999px;
+  background: var(--accent-gradient);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}

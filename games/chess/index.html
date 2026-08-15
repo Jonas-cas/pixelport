@@ -10,9 +10,12 @@
   <link rel="stylesheet" href="../../css/themes.css" />
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/game-screens.css" />
+  <link rel="stylesheet" href="../../css/game-theme-light.css" />
   <link rel="stylesheet" href="chess.css" />
 </head>
-<body>
+<!-- data-game-theme="light": Brettspiele bekommen den hellen, farbenfrohen
+     Look (css/game-theme-light.css), unabhängig vom Dark-/Bright-Mode. -->
+<body data-game-theme="light">
   <header class="site-header">
     <a class="back-link" href="../../category.html?id=brettspiele-digital">← Brettspiele</a>
     <a class="icon-button" href="../../settings.html" aria-label="Einstellungen" title="Einstellungen">⚙️</a>
@@ -29,7 +32,7 @@
 
       <!-- Eigentliches Spiel -->
       <section id="play-screen" class="game-screen chess-play" hidden>
-        <p id="chess-status" class="chess-status"></p>
+        <p id="chess-status" class="chess-status status-pill"></p>
         <div id="chess-board" class="chess-board"></div>
         <p class="game-hint">Bauern werden bei Erreichen der letzten Reihe automatisch zur Dame umgewandelt.</p>
       </section>

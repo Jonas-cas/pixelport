@@ -10,9 +10,12 @@
   <link rel="stylesheet" href="../../css/themes.css" />
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/game-screens.css" />
+  <link rel="stylesheet" href="../../css/game-theme-light.css" />
   <link rel="stylesheet" href="mau-mau.css" />
 </head>
-<body>
+<!-- data-game-theme="light": Kartenspiele bekommen den hellen, farbenfrohen
+     Look (css/game-theme-light.css), unabhängig vom Dark-/Bright-Mode. -->
+<body data-game-theme="light">
   <header class="site-header">
     <a class="back-link" href="../../category.html?id=kartenspiele">← Kartenspiele</a>
     <a class="icon-button" href="../../settings.html" aria-label="Einstellungen" title="Einstellungen">⚙️</a>
@@ -42,7 +45,7 @@
           </div>
         </div>
 
-        <p id="mm-status" class="mm-status"></p>
+        <p id="mm-status" class="mm-status status-pill"></p>
         <div id="mm-suit-picker" class="mm-suit-picker" hidden></div>
         <div id="mm-hand" class="mm-hand"></div>
       </section>

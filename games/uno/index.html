@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uno – PixelPort</title>
+
+  <script src="../../js/theme.js"></script>
+
+  <link rel="stylesheet" href="../../css/themes.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/game-screens.css" />
+  <link rel="stylesheet" href="../../css/game-theme-light.css" />
+  <link rel="stylesheet" href="uno.css" />
+</head>
+<!-- data-game-theme="light": Kartenspiele bekommen den hellen, farbenfrohen
+     Look (css/game-theme-light.css), unabhängig vom Dark-/Bright-Mode. -->
+<body data-game-theme="light">
+  <header class="site-header">
+    <a class="back-link" href="../../category.html?id=kartenspiele">← Kartenspiele</a>
+    <a class="icon-button" href="../../settings.html" aria-label="Einstellungen" title="Einstellungen">⚙️</a>
+  </header>
+
+  <main class="page game-page">
+    <section class="page-intro">
+      <h1>🔴🟡 Uno</h1>
+    </section>
+
+    <div class="game-root">
+      <!-- Vorbildschirm: Schwierigkeit + Anzahl Bots, wird von game-screens.js befüllt -->
+      <section id="setup-screen" class="game-screen"></section>
+
+      <!-- Eigentliches Spiel -->
+      <section id="play-screen" class="game-screen game-play-panel uno-table" hidden>
+        <div id="uno-opponents" class="uno-opponents"></div>
+
+        <div class="uno-center">
+          <div class="uno-pile">
+            <div id="uno-draw-pile" class="uno-card uno-card--back"></div>
+            <span id="uno-draw-count" class="uno-pile-count">0</span>
+          </div>
+          <div class="uno-pile">
+            <div id="uno-discard-card" class="uno-card"></div>
+            <span id="uno-color-badge" class="uno-color-badge" hidden></span>
+          </div>
+        </div>
+
+        <p id="uno-status" class="uno-status status-pill"></p>
+        <div id="uno-color-picker" class="uno-color-picker" hidden></div>
+        <div id="uno-hand" class="uno-hand"></div>
+      </section>
+
+      <!-- Ergebnis-Bildschirm, wird von game-screens.js befüllt -->
+      <section id="result-screen" class="game-screen" hidden></section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <a class="back-link" href="../../category.html?id=kartenspiele">← Zurück zu Kartenspiele</a>
+  </footer>
+
+  <script src="../../js/game-screens.js"></script>
+  <script src="uno.js"></script>
+</body>
+</html>

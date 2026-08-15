@@ -1,0 +1,256 @@
+/**
+ * uno.css
+ *
+ * Spielspezifische Styles für Uno. Layout/Setup/Ergebnis-Bildschirm +
+ * der helle Seiten-Skin kommen bereits aus css/game-screens.css und
+ * css/game-theme-light.css (kein Canvas, reines HTML/CSS).
+ *
+ * Farben hier sind bewusst fest (nicht themeabhängig) - ein Uno-Deck hat
+ * schließlich kräftige, klar erkennbare Grundfarben unabhängig vom
+ * Dark-/Bright-Mode. Die Design-Theme-Akzentfarbe kommt trotzdem durch
+ * (Gegner-Hervorhebung, Nachziehstapel-Rahmen, Status-Pille).
+ *
+ * Panel-Hintergrund/Rahmen/Schatten von #play-screen kommen von der
+ * gemeinsamen .game-play-panel-Klasse (css/game-theme-light.css) -
+ * .uno-table kümmert sich hier nur noch um das Flex-Layout.
+ */
+
+.uno-table {
+  --uno-red: #e6291f;
+  --uno-yellow: #f4c60b;
+  --uno-green: #2fa84f;
+  --uno-blue: #1f6fd6;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+/* ---- Gegner-Anzeige ---- */
+.uno-opponents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.uno-opponent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #fff;
+  border: 2.5px solid #e7ddc8;
+  color: #2c2a24;
+  font-weight: 700;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+}
+
+.uno-opponent.is-active {
+  border-color: color-mix(in srgb, var(--accent) 70%, black);
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--accent) 70%, black);
+}
+
+.uno-opponent-name {
+  font-weight: 800;
+}
+
+.uno-opponent-count {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+/* ---- Karten ---- */
+.uno-card {
+  position: relative;
+  width: 64px;
+  height: 92px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  flex-shrink: 0;
+  border: 3px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  color: #fff;
+}
+
+.uno-card--color {
+  background: var(--uno-card-color);
+}
+
+.uno-card--wild {
+  background: conic-gradient(
+    var(--uno-red) 0deg 90deg,
+    var(--uno-yellow) 90deg 180deg,
+    var(--uno-green) 180deg 270deg,
+    var(--uno-blue) 270deg 360deg
+  );
+}
+
+.uno-card__oval {
+  width: 72%;
+  height: 48%;
+  border-radius: 50%;
+  background: #fffdf7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-20deg);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+.uno-card__label {
+  transform: rotate(20deg);
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: var(--uno-card-color, #23212b);
+}
+
+.uno-card--wild .uno-card__label {
+  color: #23212b;
+}
+
+.uno-card__corner {
+  position: absolute;
+  top: 5px;
+  left: 6px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.uno-card__corner--bottom {
+  top: auto;
+  bottom: 5px;
+  right: 6px;
+  left: auto;
+  transform: rotate(180deg);
+}
+
+.uno-card--back {
+  background: var(--accent-gradient);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.uno-card--back::after {
+  content: "UNO";
+  color: #fff;
+  font-weight: 900;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+/* ---- Nachzieh-/Ablagestapel ---- */
+.uno-center {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.uno-pile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.uno-pile-count {
+  font-size: 0.8rem;
+  color: #8a8171;
+  font-weight: 600;
+}
+
+#uno-draw-pile.is-active {
+  cursor: pointer;
+  box-shadow: 0 0 0 3px var(--accent), 0 6px 0 color-mix(in srgb, var(--accent) 60%, black),
+    0 10px 18px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease;
+}
+
+#uno-draw-pile.is-active:hover {
+  transform: translateY(-3px);
+}
+
+.uno-color-badge {
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--uno-card-color);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ---- Farbwahl ---- */
+.uno-color-picker {
+  display: flex;
+  gap: 10px;
+}
+
+.uno-color-button {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  background: var(--uno-card-color);
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--uno-card-color) 65%, black), 0 8px 14px rgba(0, 0, 0, 0.2);
+  transition: transform 0.15s ease;
+}
+
+.uno-color-button:hover {
+  transform: translateY(-3px);
+}
+
+/* ---- Hand des Menschen ---- */
+.uno-hand {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-height: 100px;
+  width: 100%;
+}
+
+.uno-hand .uno-card {
+  cursor: default;
+  opacity: 0.45;
+  filter: grayscale(55%);
+  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+}
+
+.uno-hand .uno-card.is-playable {
+  cursor: pointer;
+  opacity: 1;
+  filter: none;
+}
+
+.uno-hand .uno-card.is-playable:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 0 2px var(--accent);
+}
+
+@media (max-width: 480px) {
+  .uno-card {
+    width: 52px;
+    height: 76px;
+  }
+
+  .uno-card__label {
+    font-size: 1.2rem;
+  }
+
+  .uno-center {
+    gap: 24px;
+  }
+}

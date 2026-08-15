@@ -156,6 +156,15 @@ const GAME_CATEGORIES = [
           "Reihum legt ihr eine Karte, die zur Farbe oder zum Wert der obersten Karte passt. Eine 7 zwingt den nächsten Spieler, 2 Karten zu ziehen (mehrere 7en hintereinander addieren sich), eine 8 lässt den nächsten Spieler aussetzen, und ein Bube erlaubt es, eine neue Farbe zu wünschen. Kannst du keine passende Karte legen, musst du eine Karte ziehen. Wer zuerst alle Karten losgeworden ist, gewinnt.",
       },
       {
+        id: "uno",
+        name: "Uno",
+        icon: "🔴🟡",
+        available: true,
+        url: "games/uno/index.html",
+        howToPlay:
+          "Reihum legt ihr eine Karte, die in Farbe oder Zahl/Symbol zur obersten Karte passt. Aussetzen überspringt den nächsten Spieler, Richtungswechsel dreht die Reihenfolge um, und +2 zwingt den nächsten Spieler, 2 Karten zu ziehen und auszusetzen. Die Farbwahl-Karten sind immer legal - die schwarze +4-Karte zwingt den nächsten Spieler zusätzlich, 4 Karten zu ziehen. Kannst du keine passende Karte legen, musst du eine Karte ziehen. Wer zuerst alle Karten losgeworden ist, gewinnt.",
+      },
+      {
         id: "solitaire",
         name: "Solitaire",
         icon: "🂡",

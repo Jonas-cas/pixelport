@@ -83,6 +83,42 @@ const GAME_CATEGORIES = [
         howToPlay:
           "Auf dem Spielfeld liegen verdeckte Kartenpaare. Du deckst nacheinander zwei Karten auf - stimmen sie überein, darfst du sie behalten und nochmal ziehen. Passen sie nicht zusammen, werden beide wieder umgedreht. Am Ende gewinnt, wer die meisten Paare gefunden hat.",
       },
+      {
+        id: "reversi",
+        name: "Reversi",
+        icon: "⚪⚫",
+        available: false,
+        url: null,
+        howToPlay:
+          "Zwei Spieler legen abwechselnd Steine auf ein 8x8-Feld. Schließt dein neuer Stein eine gerade Reihe gegnerischer Steine zwischen zwei eigenen Steinen ein, werden alle eingeschlossenen Steine zu deiner Farbe gedreht. Am Ende gewinnt, wer die meisten Steine seiner Farbe auf dem Brett hat.",
+      },
+      {
+        id: "muehle",
+        name: "Mühle",
+        icon: "🕸️",
+        available: false,
+        url: null,
+        howToPlay:
+          "Zwei Spieler setzen abwechselnd ihre Steine auf die Kreuzungspunkte eines Linienmusters. Bringst du drei eigene Steine in eine gerade Reihe (eine 'Mühle'), darfst du einen gegnerischen Stein entfernen. Nach dem Setzen aller Steine werden sie entlang der Linien verschoben. Wer nur noch zwei Steine hat oder sich nicht mehr bewegen kann, verliert.",
+      },
+      {
+        id: "backgammon",
+        name: "Backgammon",
+        icon: "🎲",
+        available: false,
+        url: null,
+        howToPlay:
+          "Zwei Spieler würfeln und bewegen ihre 15 Steine entlang des Brettes in Richtung ihres Zielfelds. Trifft man auf ein Feld mit genau einem gegnerischen Stein, wird dieser rausgeworfen und muss von vorne starten. Wer zuerst alle eigenen Steine ins Ziel gebracht hat, gewinnt.",
+      },
+      {
+        id: "mastermind",
+        name: "Mastermind",
+        icon: "🧠",
+        available: false,
+        url: null,
+        howToPlay:
+          "Der Computer wählt eine geheime Farbkombination. Du versuchst, sie in möglichst wenigen Versuchen zu erraten - nach jedem Tipp zeigen dir Stifte, wie viele Farben richtig und an der richtigen Position sind. So näherst du dich Schritt für Schritt der Lösung.",
+      },
     ],
   },
   {
@@ -137,6 +173,33 @@ const GAME_CATEGORIES = [
         howToPlay:
           "Am unteren Bildschirmrand steuerst du ein Raumschiff und schießt auf Reihen von Alien-Gegnern, die sich langsam nach unten bewegen. Ziel ist es, alle Aliens abzuschießen, bevor sie den unteren Rand erreichen. Weiche dabei den Schüssen der Gegner aus.",
       },
+      {
+        id: "asteroids",
+        name: "Asteroids",
+        icon: "☄️",
+        available: false,
+        url: null,
+        howToPlay:
+          "Du steuerst ein Raumschiff, das sich frei im Weltall dreht und schwebt. Schieße die umherfliegenden Asteroiden ab, bevor sie dich rammen - große Brocken zerbrechen dabei in kleinere. Weiche außerdem den Trümmern aus, um zu überleben.",
+      },
+      {
+        id: "labyrinth-jaeger",
+        name: "Labyrinth-Jäger",
+        icon: "🟡",
+        available: false,
+        url: null,
+        howToPlay:
+          "Du steuerst eine Figur durch ein Labyrinth und sammelst dabei alle Punkte ein. Gegnerische Geister jagen dich durch die Gänge - berühren sie dich, verlierst du ein Leben. Sammle spezielle Power-Pillen, um die Geister kurzzeitig selbst jagen zu können.",
+      },
+      {
+        id: "frogger",
+        name: "Frogger",
+        icon: "🐸",
+        available: false,
+        url: null,
+        howToPlay:
+          "Du steuerst einen Frosch, der eine belebte Straße und einen Fluss voller Hindernisse überqueren muss. Auf der Straße weichst du Fahrzeugen aus, auf dem Fluss hüpfst du auf Baumstämme und Schildkröten, um nicht unterzugehen. Erreichst du das sichere Ufer, hast du die Runde geschafft.",
+      },
     ],
   },
   {
@@ -166,12 +229,39 @@ const GAME_CATEGORIES = [
       },
       {
         id: "solitaire",
-        name: "Solitaire",
+        name: "Solitär",
         icon: "🂡",
         available: false,
         url: null,
         howToPlay:
           "Du sortierst Spielkarten in absteigender Reihenfolge und abwechselnder Farbe auf mehreren Tableau-Stapeln. Ziel ist es, alle Karten nach Farbe sortiert von Ass bis König auf vier Ablage-Stapel zu legen. Der Nachziehstapel hilft dir, wenn du im Tableau nicht mehr weiterkommst.",
+      },
+      {
+        id: "skat",
+        name: "Skat",
+        icon: "♠️",
+        available: false,
+        url: null,
+        howToPlay:
+          "Drei Spieler erhalten Karten, einer davon spielt (je nach Reizung) allein gegen die anderen beiden. Es wird nach Farbe bedient, die höchste Karte gewinnt den Stich. Am Ende zählen die Kartenwerte der eigenen Stiche - der Alleinspieler gewinnt, wenn er genug Punkte sammelt.",
+      },
+      {
+        id: "kriegsspiel",
+        name: "Kriegsspiel",
+        icon: "⚔️",
+        available: false,
+        url: null,
+        howToPlay:
+          "Das Kartendeck wird gleichmäßig auf zwei Spieler verteilt. Beide decken gleichzeitig ihre oberste Karte auf - wer die höhere Karte hat, gewinnt beide Karten. Bei Gleichstand kommt es zum 'Krieg': weitere Karten werden verdeckt und aufgedeckt eingesetzt. Wer am Ende alle Karten hat, gewinnt.",
+      },
+      {
+        id: "schwimmen",
+        name: "Schwimmen (31)",
+        icon: "🏊",
+        available: false,
+        url: null,
+        howToPlay:
+          "Jeder Spieler hat drei Karten auf der Hand und tauscht reihum Karten mit der offenen Tischauslage, um möglichst viele Punkte in einer Farbe zu sammeln (Höchstwert: 31 mit Ass, König und Dame/Bube derselben Farbe). Wer zufrieden ist, klopft und beendet die Runde damit bald. Wer am Ende die wenigsten Punkte hat, verliert ein Leben.",
       },
     ],
   },
@@ -198,6 +288,69 @@ const GAME_CATEGORIES = [
         url: "games/panzer-duell/index.html",
         howToPlay:
           "Zwei Panzer treten auf einem Feld mit Hindernissen gegeneinander an. Spieler 1 steuert mit WASD und schießt mit der Leertaste, Spieler 2 mit den Pfeiltasten und schießt mit Enter oder Strg. Trefft ihr den gegnerischen Panzer, gewinnt ihr die Runde - weicht dabei Hindernissen und gegnerischen Schüssen aus. Wer zuerst 3 Runden gewinnt, gewinnt das Duell.",
+      },
+      {
+        id: "air-hockey",
+        name: "Air Hockey",
+        icon: "🏒",
+        available: false,
+        url: null,
+        howToPlay:
+          "Ein Puck wird zwischen zwei frei beweglichen Schlägern hin- und hergeschossen. Ihr bewegt eure Schläger in alle Richtungen, um den Puck ins gegnerische Tor zu befördern und das eigene zu verteidigen. Wer zuerst eine festgelegte Punktzahl erreicht, gewinnt.",
+      },
+      {
+        id: "sumo-duell",
+        name: "Sumo-Duell",
+        icon: "🤼",
+        available: false,
+        url: null,
+        howToPlay:
+          "Zwei Ringer versuchen, sich gegenseitig aus einem runden Ring zu schubsen. Wer den Ring verlässt oder zu Boden geht, verliert die Runde. Wer zuerst genug Runden gewinnt, gewinnt das Duell.",
+      },
+      {
+        id: "bomben-duell",
+        name: "Bomben-Duell",
+        icon: "💣",
+        available: false,
+        url: null,
+        howToPlay:
+          "Zwei Spieler legen in einem Labyrinth aus Mauern Bomben, die nach kurzer Zeit explodieren und alles in ihrer Reichweite zerstören - inklusive Wänden und dem Gegner. Weicht den Explosionen aus und sammelt Power-Ups ein, um stärker zu werden. Wer den Gegner zuerst erwischt, gewinnt.",
+      },
+    ],
+  },
+  {
+    id: "wuerfel-partyspiele",
+    name: "Würfel- & Partyspiele",
+    icon: "🎉",
+    theme: "light",
+    description: "Klassische Würfel- und Gesellschaftsspiele für mehrere Spieler.",
+    games: [
+      {
+        id: "shut-the-box",
+        name: "Shut the Box",
+        icon: "📦",
+        available: false,
+        url: null,
+        howToPlay:
+          "Auf einem Feld liegen Zahlenklappen von 1 bis 9. Du würfelst und schließt eine Kombination offener Klappen, deren Summe der Würfelzahl entspricht. Kannst du keine passende Kombination mehr bilden, endet dein Zug - deine offene Zahlensumme zählt als Minuspunkte. Ziel ist es, möglichst wenige oder gar keine Klappen übrig zu behalten.",
+      },
+      {
+        id: "mensch-aergere-dich-nicht",
+        name: "Mensch-ärgere-dich-nicht",
+        icon: "🔴🔵🟡🟢",
+        available: false,
+        url: null,
+        howToPlay:
+          "Bis zu vier Spieler würfeln reihum und bewegen ihre vier Spielfiguren vom Startfeld über die Runde bis in ihr Zielhaus. Landest du auf dem Feld einer gegnerischen Figur, wird diese rausgeworfen und muss von vorne starten. Wer zuerst alle vier Figuren sicher im Ziel hat, gewinnt.",
+      },
+      {
+        id: "kniffel",
+        name: "Kniffel",
+        icon: "🎲",
+        available: false,
+        url: null,
+        howToPlay:
+          "Du würfelst mit 5 Würfeln bis zu dreimal pro Runde und darfst dabei einzelne Würfel beiseitelegen. Am Ende der Runde trägst du das Ergebnis in eine von mehreren Kategorien ein (z.B. Dreierpasch, Kniffel, Full House). Nach 13 Runden gewinnt, wer die meisten Punkte gesammelt hat.",
       },
     ],
   },

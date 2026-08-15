@@ -21,6 +21,10 @@
  *              Anfänger erklären. Wird über den "❓ Wie spiele ich das?"-Button
  *              auf der Kachel angezeigt (js/category.js + js/game-screens.js).
  *              Weglassen -> Button erscheint einfach nicht auf der Kachel.
+ *   isNew      optional, nur bei available:true relevant: zeigt ein kleines
+ *              "✨ Neu"-Badge auf der Kachel. Von Hand wieder entfernen
+ *              (Feld löschen oder auf false setzen), sobald das Spiel nicht
+ *              mehr "neu" ist.
  */
 
 const GAME_CATEGORIES = [
@@ -33,7 +37,7 @@ const GAME_CATEGORIES = [
       {
         id: "vier-gewinnt",
         name: "Vier Gewinnt",
-        icon: "🔵",
+        icon: "🔴🟡",
         available: false,
         url: null,
         howToPlay:
@@ -42,7 +46,7 @@ const GAME_CATEGORIES = [
       {
         id: "tic-tac-toe",
         name: "Tic-Tac-Toe",
-        icon: "❌",
+        icon: "❌⭕",
         available: false,
         url: null,
         howToPlay:
@@ -60,7 +64,7 @@ const GAME_CATEGORIES = [
       {
         id: "dame",
         name: "Dame",
-        icon: "⚫",
+        icon: "⚫⚪",
         available: false,
         url: null,
         howToPlay:
@@ -69,7 +73,7 @@ const GAME_CATEGORIES = [
       {
         id: "memory",
         name: "Memory",
-        icon: "🧠",
+        icon: "🎴",
         available: false,
         url: null,
         howToPlay:
@@ -89,6 +93,7 @@ const GAME_CATEGORIES = [
         icon: "🏓",
         available: true,
         url: "games/pong/index.html",
+        isNew: true,
         howToPlay:
           "Zwei Schläger, einer links und einer rechts, bewegen sich rauf und runter. Ihr müsst den Ball mit eurem Schläger zurückschlagen, bevor er hinter euch vorbeifliegt. Verfehlt ihr den Ball, bekommt der Gegner einen Punkt. Wer zuerst 10 Punkte erreicht, gewinnt.",
       },
@@ -113,7 +118,7 @@ const GAME_CATEGORIES = [
       {
         id: "tetris",
         name: "Tetris",
-        icon: "🟪",
+        icon: "🟦🟨",
         available: false,
         url: null,
         howToPlay:

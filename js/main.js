@@ -8,10 +8,11 @@
 (function () {
   "use strict";
 
-  function createCategoryCard(category) {
+  function createCategoryCard(category, index) {
     const link = document.createElement("a");
     link.className = "tile category-tile";
     link.href = `category.html?id=${encodeURIComponent(category.id)}`;
+    link.style.setProperty("--i", index);
 
     const icon = document.createElement("span");
     icon.className = "tile-icon";
@@ -43,8 +44,8 @@
     }
 
     grid.innerHTML = "";
-    GAME_CATEGORIES.forEach((category) => {
-      grid.appendChild(createCategoryCard(category));
+    GAME_CATEGORIES.forEach((category, index) => {
+      grid.appendChild(createCategoryCard(category, index));
     });
   }
 

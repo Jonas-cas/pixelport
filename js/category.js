@@ -6,7 +6,8 @@
  * Spiele als Kacheln in #games-grid. Spiele ohne url/available gelten
  * als Platzhalter ("Bald verfügbar"). Trägt ein Spiel ein howToPlay ein,
  * bekommt seine Kachel zusätzlich einen "❓ Wie spiele ich das?"-Button
- * (siehe js/game-screens.js), egal ob spielbar oder Platzhalter.
+ * (siehe js/game-screens.js), egal ob spielbar oder Platzhalter. Spielbare
+ * Spiele mit isNew:true bekommen zusätzlich ein "Neu"-Badge (games-data.js).
  */
 
 (function () {
@@ -17,12 +18,20 @@
     return params.get("id");
   }
 
-  function createGameTile(game) {
+  function createGameTile(game, index) {
     const isAvailable = Boolean(game.available && game.url);
     const el = document.createElement(isAvailable ? "a" : "div");
     el.className = "tile game-tile" + (isAvailable ? "" : " game-tile--soon");
+    el.style.setProperty("--i", index);
     if (isAvailable) {
       el.href = game.url;
+    }
+
+    if (isAvailable && game.isNew) {
+      const newBadge = document.createElement("span");
+      newBadge.className = "new-badge";
+      newBadge.textContent = "✨ Neu";
+      el.appendChild(newBadge);
     }
 
     const icon = document.createElement("span");
@@ -71,8 +80,8 @@
       return;
     }
 
-    category.games.forEach((game) => {
-      grid.appendChild(createGameTile(game));
+    category.games.forEach((game, index) => {
+      grid.appendChild(createGameTile(game, index));
     });
   }
 

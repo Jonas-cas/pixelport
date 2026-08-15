@@ -38,8 +38,8 @@ const GAME_CATEGORIES = [
         id: "vier-gewinnt",
         name: "Vier Gewinnt",
         icon: "🔴🟡",
-        available: false,
-        url: null,
+        available: true,
+        url: "games/vier-gewinnt/index.html",
         howToPlay:
           "Zwei Spieler werfen abwechselnd Spielsteine in eines von mehreren senkrechten Feldern, die sich von unten füllen. Ziel ist es, als Erster vier eigene Steine in einer Reihe zu bekommen - waagerecht, senkrecht oder diagonal. Wer das zuerst schafft, gewinnt.",
       },

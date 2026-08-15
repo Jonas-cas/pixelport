@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vier Gewinnt – PixelPort</title>
+
+  <script src="../../js/theme.js"></script>
+
+  <link rel="stylesheet" href="../../css/themes.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/game-screens.css" />
+  <link rel="stylesheet" href="../../css/game-theme-light.css" />
+  <link rel="stylesheet" href="vier-gewinnt.css" />
+</head>
+<!-- data-game-theme="light": Brettspiele bekommen den hellen, farbenfrohen
+     Look (css/game-theme-light.css), unabhängig vom Dark-/Bright-Mode. -->
+<body data-game-theme="light">
+  <header class="site-header">
+    <a class="back-link" href="../../category.html?id=brettspiele-digital">← Brettspiele</a>
+    <a class="icon-button" href="../../settings.html" aria-label="Einstellungen" title="Einstellungen">⚙️</a>
+  </header>
+
+  <main class="page game-page">
+    <section class="page-intro">
+      <h1>🔴🟡 Vier Gewinnt</h1>
+    </section>
+
+    <div class="game-root">
+      <!-- Vorbildschirm: Schwierigkeit + Modus, wird von game-screens.js befüllt -->
+      <section id="setup-screen" class="game-screen"></section>
+
+      <!-- Eigentliches Spiel -->
+      <section id="play-screen" class="game-screen game-play-panel c4-play" hidden>
+        <p id="c4-status" class="c4-status status-pill"></p>
+        <div id="c4-board" class="c4-board"></div>
+        <p id="game-hint" class="game-hint"></p>
+      </section>
+
+      <!-- Ergebnis-Bildschirm, wird von game-screens.js befüllt -->
+      <section id="result-screen" class="game-screen" hidden></section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <a class="back-link" href="../../category.html?id=brettspiele-digital">← Zurück zu Brettspiele</a>
+  </footer>
+
+  <script src="../../js/game-screens.js"></script>
+  <script src="vier-gewinnt.js"></script>
+</body>
+</html>

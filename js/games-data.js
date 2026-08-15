@@ -87,8 +87,8 @@ const GAME_CATEGORIES = [
         id: "reversi",
         name: "Reversi",
         icon: "⚪⚫",
-        available: false,
-        url: null,
+        available: true,
+        url: "games/reversi/index.html",
         howToPlay:
           "Zwei Spieler legen abwechselnd Steine auf ein 8x8-Feld. Schließt dein neuer Stein eine gerade Reihe gegnerischer Steine zwischen zwei eigenen Steinen ein, werden alle eingeschlossenen Steine zu deiner Farbe gedreht. Am Ende gewinnt, wer die meisten Steine seiner Farbe auf dem Brett hat.",
       },

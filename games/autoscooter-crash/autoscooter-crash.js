@@ -21,6 +21,13 @@
  * Kollisionen für BEIDE Autos gleichermaßen, sowie zusätzlich - wie bei
  * den anderen Bot-Gegnern im Portal (z.B. Air Hockey) - wie ungenau der
  * Bot lenkt (botError, in Bogenmaß Rauschen auf die Ziel-Steuerrichtung).
+ * Zusätzlich wählt die Schwierigkeit auch das Streckenlayout (TRACKS):
+ * von "sehr leicht" (offene Bahn, kaum Hindernisse) bis "sehr schwer"
+ * (enge Taschen + zusätzliche Pfeiler). Die äußere Begrenzung und damit
+ * auch BOT_WAYPOINTS (die bewusst außerhalb aller inneren Abzweigungen
+ * verlaufen) bleiben über alle Stufen identisch, nur das Innenleben der
+ * Strecke ändert sich - das hält die Bot-Navigation und die Spawn-Punkte
+ * für jede Stufe gültig, ohne dass beides je Stufe neu geprüft werden muss.
  */
 
 import * as THREE from "../../js/vendor/three.module.js";
@@ -29,29 +36,85 @@ const CATEGORY_URL = "../../category.html?id=3d";
 const GAME_DURATION = 150; // Sekunden
 const CAR_R = 1.0;
 
-// Wände der Strecke: zentraler Rundkurs (Außenwände + Insel in der Mitte)
-// plus mehrere Abzweigungen/Taschen an den Seiten. 1:1 aus der Referenz.
-const WALLS = [
-  { x: 0, z: -16, w: 44, d: 1 },
-  { x: 0, z: 16, w: 44, d: 1 },
-  { x: -22, z: 0, w: 1, d: 33 },
-  { x: 22, z: 0, w: 1, d: 33 },
-
-  { x: 0, z: 0, w: 10, d: 8 },
-
-  { x: -10, z: -7, w: 8, d: 1 },
-  { x: -10, z: 7, w: 8, d: 1 },
-  { x: 10, z: -7, w: 8, d: 1 },
-  { x: 10, z: 7, w: 8, d: 1 },
-
-  { x: -17, z: -4, w: 1, d: 8 },
-  { x: 17, z: -4, w: 1, d: 8 },
-  { x: -17, z: 8, w: 1, d: 8 },
-  { x: 17, z: 8, w: 1, d: 8 },
+// Äußere Begrenzung - auf allen Schwierigkeitsstufen identisch (siehe
+// Kommentar oben zu BOT_WAYPOINTS/Spawn-Punkten).
+const OUTER_WALLS = [
+  { x: 0, z: -16, w: 44, d: 1, color: 0xf76707 },
+  { x: 0, z: 16, w: 44, d: 1, color: 0xf76707 },
+  { x: -22, z: 0, w: 1, d: 33, color: 0xf76707 },
+  { x: 22, z: 0, w: 1, d: 33, color: 0xf76707 },
 ];
 
+const ISLAND_COLOR = 0xf5b400; // zentraler Block: kräftiges Gold
+const BRANCH_COLOR = 0xd9480f; // Abzweigungs-Querwände: Terracotta
+const SIDE_COLOR = 0xa9702c; // Seitenwege-Wände: warmes Braun
+const PILLAR_COLOR = 0xe9ecef; // zusätzliche Hindernis-Pfeiler: helles Warngrau
+
+// Streckenlayout je Schwierigkeitsstufe (id aus PixelPortGameScreens.
+// DIFFICULTIES) - von offen/einfach bis eng/verwinkelt mit Extra-Pfeilern.
+const TRACKS = {
+  1: [
+    ...OUTER_WALLS,
+    { x: 0, z: 0, w: 8, d: 6, color: ISLAND_COLOR },
+  ],
+  2: [
+    ...OUTER_WALLS,
+    { x: 0, z: 0, w: 10, d: 8, color: ISLAND_COLOR },
+    { x: -17, z: 3, w: 1, d: 14, color: SIDE_COLOR },
+    { x: 17, z: -3, w: 1, d: 14, color: SIDE_COLOR },
+  ],
+  3: [
+    ...OUTER_WALLS,
+    { x: 0, z: 0, w: 10, d: 8, color: ISLAND_COLOR },
+    { x: -10, z: -7, w: 8, d: 1, color: BRANCH_COLOR },
+    { x: -10, z: 7, w: 8, d: 1, color: BRANCH_COLOR },
+    { x: 10, z: -7, w: 8, d: 1, color: BRANCH_COLOR },
+    { x: 10, z: 7, w: 8, d: 1, color: BRANCH_COLOR },
+    { x: -17, z: -4, w: 1, d: 8, color: SIDE_COLOR },
+    { x: 17, z: -4, w: 1, d: 8, color: SIDE_COLOR },
+    { x: -17, z: 8, w: 1, d: 8, color: SIDE_COLOR },
+    { x: 17, z: 8, w: 1, d: 8, color: SIDE_COLOR },
+  ],
+  4: [
+    ...OUTER_WALLS,
+    { x: 0, z: 0, w: 10, d: 8, color: ISLAND_COLOR },
+    { x: -10, z: -7, w: 8, d: 1, color: BRANCH_COLOR },
+    { x: -10, z: 7, w: 8, d: 1, color: BRANCH_COLOR },
+    { x: 10, z: -7, w: 8, d: 1, color: BRANCH_COLOR },
+    { x: 10, z: 7, w: 8, d: 1, color: BRANCH_COLOR },
+    { x: -17, z: -4, w: 1, d: 8, color: SIDE_COLOR },
+    { x: 17, z: -4, w: 1, d: 8, color: SIDE_COLOR },
+    { x: -17, z: 8, w: 1, d: 8, color: SIDE_COLOR },
+    { x: 17, z: 8, w: 1, d: 8, color: SIDE_COLOR },
+    { x: 13, z: 0, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+    { x: -13, z: 0, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+    { x: 0, z: 10, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+    { x: 0, z: -10, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+  ],
+  5: [
+    ...OUTER_WALLS,
+    { x: 0, z: 0, w: 10, d: 8, color: ISLAND_COLOR },
+    { x: -10, z: -7, w: 8, d: 1, color: BRANCH_COLOR },
+    { x: -10, z: 7, w: 8, d: 1, color: BRANCH_COLOR },
+    { x: 10, z: -7, w: 8, d: 1, color: BRANCH_COLOR },
+    { x: 10, z: 7, w: 8, d: 1, color: BRANCH_COLOR },
+    // engere Seitenwege als Stufe 3/4 (längere Wände -> schmalere Lücke)
+    { x: -17, z: -4, w: 1, d: 10, color: SIDE_COLOR },
+    { x: 17, z: -4, w: 1, d: 10, color: SIDE_COLOR },
+    { x: -17, z: 8, w: 1, d: 10, color: SIDE_COLOR },
+    { x: 17, z: 8, w: 1, d: 10, color: SIDE_COLOR },
+    { x: 13, z: 0, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+    { x: -13, z: 0, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+    { x: 0, z: 10, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+    { x: 0, z: -10, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+    { x: 6, z: -11, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+    { x: -6, z: 11, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+  ],
+};
+
 // Grober äußerer Rundkurs für die Bot-Navigation - bewusst außerhalb aller
-// Abzweigungs-Taschen, damit der Bot nirgends hängen bleibt.
+// Abzweigungs-Taschen (auf jeder Schwierigkeitsstufe), damit der Bot
+// nirgends hängen bleibt.
 const BOT_WAYPOINTS = [
   { x: -19, z: -13 }, { x: 0, z: -13 }, { x: 19, z: -13 },
   { x: 19, z: 0 },
@@ -126,7 +189,64 @@ function makeCar(color) {
   bumper.rotation.x = Math.PI / 2;
   bumper.position.y = 0.35;
   g.add(bumper);
+
+  // Kleiner weißer Richtungspfeil oben auf dem Auto, zeigt immer "vorne"
+  // (Fahrtrichtung bei angle=0 ist +Z, siehe updateCar) und dreht sich mit
+  // der Gruppe mit, da er ein Kind derselben Group ist.
+  const arrow = new THREE.Mesh(
+    new THREE.ConeGeometry(0.3, 0.7, 3),
+    new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.3 })
+  );
+  arrow.rotation.x = Math.PI / 2;
+  arrow.position.set(0, 0.85, 0.35);
+  g.add(arrow);
+
   return g;
+}
+
+// Kleine Karo-Textur für den Boden (zwei Blautöne), statt einer
+// einheitlich flachen Fläche - rein prozedural per Canvas erzeugt, kein
+// externes Bild-Asset nötig.
+function makeFloorTexture() {
+  const size = 64;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#3b5bdb";
+  ctx.fillRect(0, 0, size, size);
+  ctx.fillStyle = "#4c6ef5";
+  ctx.fillRect(0, 0, size / 2, size / 2);
+  ctx.fillRect(size / 2, size / 2, size / 2, size / 2);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(11, 8); // ~4 Einheiten pro Kachel auf dem 44x33-Boden
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
+// Wand-Materialien nach Farbe cachen, damit ein Streckenwechsel nicht bei
+// jedem Neustart dieselben Materialien neu anlegt.
+const wallMaterialCache = new Map();
+function wallMaterial(color) {
+  if (!wallMaterialCache.has(color)) {
+    wallMaterialCache.set(color, new THREE.MeshStandardMaterial({ color, roughness: 0.5 }));
+  }
+  return wallMaterialCache.get(color);
+}
+
+// Baut die Wandkörper für ein Streckenlayout neu auf (bei jedem Spielstart,
+// da sich das Layout je Schwierigkeitsgrad unterscheidet - siehe TRACKS).
+function buildTrackMeshes(walls) {
+  const { wallsGroup } = three;
+  wallsGroup.clear();
+  walls.forEach((w) => {
+    const mesh = new THREE.Mesh(new THREE.BoxGeometry(w.w, 1.2, w.d), wallMaterial(w.color));
+    mesh.position.set(w.x, 0.6, w.z);
+    wallsGroup.add(mesh);
+  });
 }
 
 function ensureScene() {
@@ -150,16 +270,12 @@ function ensureScene() {
 
   const floor = new THREE.Mesh(
     new THREE.BoxGeometry(44, 0.4, 33),
-    new THREE.MeshStandardMaterial({ color: 0x2d5fd6, roughness: 0.8 })
+    new THREE.MeshStandardMaterial({ map: makeFloorTexture(), roughness: 0.8 })
   );
   scene.add(floor);
 
-  const wallMat = new THREE.MeshStandardMaterial({ color: 0xe8a33c, roughness: 0.5 });
-  WALLS.forEach((w) => {
-    const mesh = new THREE.Mesh(new THREE.BoxGeometry(w.w, 1.2, w.d), wallMat);
-    mesh.position.set(w.x, 0.6, w.z);
-    scene.add(mesh);
-  });
+  const wallsGroup = new THREE.Group();
+  scene.add(wallsGroup);
 
   const colors = getThemeColors();
   const car1 = makeCar(new THREE.Color(colors.p1));
@@ -176,7 +292,7 @@ function ensureScene() {
   });
   resizeObserver.observe(mountEl);
 
-  three = { scene, camera, renderer, car1, car2 };
+  three = { scene, camera, renderer, car1, car2, wallsGroup };
   return three;
 }
 
@@ -197,8 +313,8 @@ function resetPositions(s) {
   s.botTargetAngleError = 0;
 }
 
-function resolveWalls(p) {
-  WALLS.forEach((w) => {
+function resolveWalls(p, walls) {
+  walls.forEach((w) => {
     const halfW = w.w / 2;
     const halfD = w.d / 2;
     const closestX = clamp(p.x, w.x - halfW, w.x + halfW);
@@ -223,7 +339,7 @@ function resolveWalls(p) {
   });
 }
 
-function updateCar(p, turnLeft, turnRight, accelerate, brake, settings) {
+function updateCar(p, turnLeft, turnRight, accelerate, brake, settings, walls) {
   if (turnLeft) p.angle += settings.turnRate;
   if (turnRight) p.angle -= settings.turnRate;
   const accel = settings.accel;
@@ -239,7 +355,7 @@ function updateCar(p, turnLeft, turnRight, accelerate, brake, settings) {
   p.vz *= settings.drag;
   p.x += p.vx;
   p.z += p.vz;
-  resolveWalls(p);
+  resolveWalls(p, walls);
 }
 
 function normalizeAngle(a) {
@@ -271,7 +387,7 @@ function updateBot(dt, settings) {
 
   const turnLeft = diff > 0.05;
   const turnRight = diff < -0.05;
-  updateCar(p, turnLeft, turnRight, true, false, settings);
+  updateCar(p, turnLeft, turnRight, true, false, settings, state.walls);
 }
 
 function resolveCarCollision() {
@@ -311,13 +427,13 @@ function updateScoreboard() {
 }
 
 function update(dt) {
-  const { settings } = state;
-  updateCar(state.p1, state.keys.a, state.keys.d, state.keys.w, state.keys.s, settings);
+  const { settings, walls } = state;
+  updateCar(state.p1, state.keys.a, state.keys.d, state.keys.w, state.keys.s, settings, walls);
 
   if (state.mode === "bot") {
     updateBot(dt, settings);
   } else {
-    updateCar(state.p2, state.keys.ArrowLeft, state.keys.ArrowRight, state.keys.ArrowUp, state.keys.ArrowDown, settings);
+    updateCar(state.p2, state.keys.ArrowLeft, state.keys.ArrowRight, state.keys.ArrowUp, state.keys.ArrowDown, settings, walls);
   }
 
   resolveCarCollision();
@@ -366,9 +482,11 @@ function startGame(selection) {
 
   showScreen(playScreen);
   ensureScene();
+  buildTrackMeshes(TRACKS[selection.difficulty.id]);
 
   state = {
     settings: DIFFICULTY_SETTINGS[selection.difficulty.id],
+    walls: TRACKS[selection.difficulty.id],
     mode: selection.mode.id,
     score: { p1: 0, p2: 0 },
     timeLeft: GAME_DURATION,

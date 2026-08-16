@@ -1,0 +1,64 @@
+/**
+ * autoscooter-crash.css
+ *
+ * Spielspezifische Styles für Autoscooter-Crash. Vorbildschirm/Ergebnis
+ * kommen bereits aus css/game-screens.css - hier steht nur die HUD-Leiste
+ * und der Mount-Container für den Three.js-Renderer. Die 3D-Szene selbst
+ * bleibt bewusst dunkel/atmosphärisch (kein helles Theme eingebunden).
+ */
+
+#play-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.ac-score {
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-score--p1 {
+  color: var(--accent);
+}
+
+.ac-score--p2 {
+  color: var(--accent-2);
+}
+
+.ac-timer {
+  margin-left: 12px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.ac-mount {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  aspect-ratio: 4 / 3;
+  background: #0e0d17;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.ac-mount canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 480px) {
+  .ac-timer {
+    margin-left: 0;
+    display: block;
+    margin-top: 6px;
+  }
+}

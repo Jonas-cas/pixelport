@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autoscooter-Crash – PixelPort</title>
+
+  <script src="../../js/theme.js"></script>
+
+  <link rel="stylesheet" href="../../css/themes.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/game-screens.css" />
+  <link rel="stylesheet" href="autoscooter-crash.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="../../category.html?id=3d">← 3D</a>
+    <a class="icon-button" href="../../settings.html" aria-label="Einstellungen" title="Einstellungen">⚙️</a>
+  </header>
+
+  <main class="page game-page">
+    <section class="page-intro">
+      <h1>🚗 Autoscooter-Crash</h1>
+    </section>
+
+    <div class="game-root">
+      <!-- Vorbildschirm: Schwierigkeit + Modus, wird von game-screens.js befüllt -->
+      <section id="setup-screen" class="game-screen"></section>
+
+      <!-- Eigentliches Spiel -->
+      <section id="play-screen" class="game-screen" hidden>
+        <div class="game-hud">
+          <span id="ac-score-left" class="ac-score ac-score--p1">0</span>
+          <span class="game-hud__divider">:</span>
+          <span id="ac-score-right" class="ac-score ac-score--p2">0</span>
+          <span id="ac-timer" class="ac-timer">⏱ 150s</span>
+        </div>
+        <div id="ac-mount" class="ac-mount"></div>
+        <p id="game-hint" class="game-hint"></p>
+      </section>
+
+      <!-- Ergebnis-Bildschirm, wird von game-screens.js befüllt -->
+      <section id="result-screen" class="game-screen" hidden></section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <a class="back-link" href="../../category.html?id=3d">← Zurück zu 3D</a>
+  </footer>
+
+  <script src="../../js/game-screens.js"></script>
+  <script type="module" src="autoscooter-crash.js"></script>
+</body>
+</html>

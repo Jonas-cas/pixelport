@@ -354,6 +354,24 @@ const GAME_CATEGORIES = [
       },
     ],
   },
+  {
+    id: "3d",
+    name: "3D",
+    icon: "🧊",
+    description: "Spiele mit echter 3D-Grafik statt flacher Draufsicht.",
+    games: [
+      {
+        id: "autoscooter-crash",
+        name: "Autoscooter-Crash",
+        icon: "🚗",
+        available: true,
+        isNew: true,
+        url: "games/autoscooter-crash/index.html",
+        howToPlay:
+          "Zwei Autoscooter krachen auf einer 3D-Strecke mit Rundkurs und Abzweigungen ineinander. Spieler 1 steuert mit WASD, Spieler 2 mit den Pfeiltasten. Bei einem Zusammenstoß bekommt das Auto mit der höheren Geschwindigkeit einen Punkt. Nach 150 Sekunden gewinnt, wer mehr Punkte gesammelt hat.",
+      },
+    ],
+  },
 ];
 
 /**

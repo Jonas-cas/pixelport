@@ -21,13 +21,19 @@
  * Kollisionen für BEIDE Autos gleichermaßen, sowie zusätzlich - wie bei
  * den anderen Bot-Gegnern im Portal (z.B. Air Hockey) - wie ungenau der
  * Bot lenkt (botError, in Bogenmaß Rauschen auf die Ziel-Steuerrichtung).
- * Zusätzlich wählt die Schwierigkeit auch das Streckenlayout (TRACKS):
- * von "sehr leicht" (offene Bahn, kaum Hindernisse) bis "sehr schwer"
- * (enge Taschen + zusätzliche Pfeiler). Die äußere Begrenzung und damit
- * auch BOT_WAYPOINTS (die bewusst außerhalb aller inneren Abzweigungen
- * verlaufen) bleiben über alle Stufen identisch, nur das Innenleben der
- * Strecke ändert sich - das hält die Bot-Navigation und die Spawn-Punkte
- * für jede Stufe gültig, ohne dass beides je Stufe neu geprüft werden muss.
+ * Zusätzlich wählt die Schwierigkeit auch das Streckenlayout: TRACKS[id]
+ * ist je Schwierigkeitsstufe ein kleiner Pool mehrerer Maps (von "sehr
+ * leicht" = offene Bahn, kaum Hindernisse, bis "sehr schwer" = enge
+ * Taschen + zusätzliche Pfeiler) - bei Spielstart wird zufällig eine Map
+ * aus dem passenden Pool gewählt, für Abwechslung innerhalb derselben
+ * Schwierigkeit. Die äußere Begrenzung und damit auch BOT_WAYPOINTS (die
+ * bewusst außerhalb aller inneren Abzweigungen verlaufen) bleiben über
+ * alle Maps identisch, nur das Innenleben der Strecke ändert sich - das
+ * hält die Bot-Navigation und die Spawn-Punkte für jede Map gültig, ohne
+ * dass beides je Map neu geprüft werden muss.
+ *
+ * Die Kamera ist bewusst fest positioniert (kein Follow/Zoom mehr) und
+ * zeigt immer die komplette Spielfläche von oben-schräg.
  */
 
 import * as THREE from "../../js/vendor/three.module.js";
@@ -50,65 +56,81 @@ const BRANCH_COLOR = 0xd9480f; // Abzweigungs-Querwände: Terracotta
 const SIDE_COLOR = 0xa9702c; // Seitenwege-Wände: warmes Braun
 const PILLAR_COLOR = 0xe9ecef; // zusätzliche Hindernis-Pfeiler: helles Warngrau
 
-// Streckenlayout je Schwierigkeitsstufe (id aus PixelPortGameScreens.
-// DIFFICULTIES) - von offen/einfach bis eng/verwinkelt mit Extra-Pfeilern.
+// Wiederverwendbare Bausteine, aus denen sich die Maps unten zusammensetzen.
+const ISLAND_SOLID = { x: 0, z: 0, w: 10, d: 8, color: ISLAND_COLOR };
+// Zwei kleinere Inseln mit Slalom-Lücke in der Mitte statt einem Block.
+const ISLAND_TWIN = [
+  { x: -5, z: 0, w: 6, d: 6, color: ISLAND_COLOR },
+  { x: 5, z: 0, w: 6, d: 6, color: ISLAND_COLOR },
+];
+const BRANCH_WALLS = [
+  { x: -10, z: -7, w: 8, d: 1, color: BRANCH_COLOR },
+  { x: -10, z: 7, w: 8, d: 1, color: BRANCH_COLOR },
+  { x: 10, z: -7, w: 8, d: 1, color: BRANCH_COLOR },
+  { x: 10, z: 7, w: 8, d: 1, color: BRANCH_COLOR },
+];
+const SIDE_WALLS_NORMAL = [
+  { x: -17, z: -4, w: 1, d: 8, color: SIDE_COLOR },
+  { x: 17, z: -4, w: 1, d: 8, color: SIDE_COLOR },
+  { x: -17, z: 8, w: 1, d: 8, color: SIDE_COLOR },
+  { x: 17, z: 8, w: 1, d: 8, color: SIDE_COLOR },
+];
+// Engere Seitenwege als SIDE_WALLS_NORMAL (längere Wände -> schmalere Lücke).
+const SIDE_WALLS_TIGHT = [
+  { x: -17, z: -4, w: 1, d: 10, color: SIDE_COLOR },
+  { x: 17, z: -4, w: 1, d: 10, color: SIDE_COLOR },
+  { x: -17, z: 8, w: 1, d: 10, color: SIDE_COLOR },
+  { x: 17, z: 8, w: 1, d: 10, color: SIDE_COLOR },
+];
+const PILLARS_4 = [
+  { x: 13, z: 0, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+  { x: -13, z: 0, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+  { x: 0, z: 10, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+  { x: 0, z: -10, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+];
+const PILLARS_6 = [
+  ...PILLARS_4,
+  { x: 6, z: -11, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+  { x: -6, z: 11, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+];
+
+// Streckenlayouts je Schwierigkeitsstufe (id aus PixelPortGameScreens.
+// DIFFICULTIES) - je Stufe ein kleiner Pool mehrerer Maps, von
+// offen/einfach bis eng/verwinkelt mit Extra-Pfeilern.
 const TRACKS = {
   1: [
-    ...OUTER_WALLS,
-    { x: 0, z: 0, w: 8, d: 6, color: ISLAND_COLOR },
+    [...OUTER_WALLS, { x: 0, z: 0, w: 8, d: 6, color: ISLAND_COLOR }],
+    [
+      ...OUTER_WALLS,
+      { x: -4, z: 0, w: 2, d: 2, color: ISLAND_COLOR },
+      { x: 4, z: 0, w: 2, d: 2, color: ISLAND_COLOR },
+    ],
   ],
   2: [
-    ...OUTER_WALLS,
-    { x: 0, z: 0, w: 10, d: 8, color: ISLAND_COLOR },
-    { x: -17, z: 3, w: 1, d: 14, color: SIDE_COLOR },
-    { x: 17, z: -3, w: 1, d: 14, color: SIDE_COLOR },
+    [
+      ...OUTER_WALLS,
+      ISLAND_SOLID,
+      { x: -17, z: 3, w: 1, d: 14, color: SIDE_COLOR },
+      { x: 17, z: -3, w: 1, d: 14, color: SIDE_COLOR },
+    ],
+    [
+      ...OUTER_WALLS,
+      ISLAND_SOLID,
+      { x: -17, z: -2, w: 1, d: 10, color: SIDE_COLOR },
+      { x: 17, z: 2, w: 1, d: 10, color: SIDE_COLOR },
+    ],
   ],
   3: [
-    ...OUTER_WALLS,
-    { x: 0, z: 0, w: 10, d: 8, color: ISLAND_COLOR },
-    { x: -10, z: -7, w: 8, d: 1, color: BRANCH_COLOR },
-    { x: -10, z: 7, w: 8, d: 1, color: BRANCH_COLOR },
-    { x: 10, z: -7, w: 8, d: 1, color: BRANCH_COLOR },
-    { x: 10, z: 7, w: 8, d: 1, color: BRANCH_COLOR },
-    { x: -17, z: -4, w: 1, d: 8, color: SIDE_COLOR },
-    { x: 17, z: -4, w: 1, d: 8, color: SIDE_COLOR },
-    { x: -17, z: 8, w: 1, d: 8, color: SIDE_COLOR },
-    { x: 17, z: 8, w: 1, d: 8, color: SIDE_COLOR },
+    [...OUTER_WALLS, ISLAND_SOLID, ...BRANCH_WALLS, ...SIDE_WALLS_NORMAL],
+    [...OUTER_WALLS, ...ISLAND_TWIN, ...BRANCH_WALLS, ...SIDE_WALLS_NORMAL],
   ],
   4: [
-    ...OUTER_WALLS,
-    { x: 0, z: 0, w: 10, d: 8, color: ISLAND_COLOR },
-    { x: -10, z: -7, w: 8, d: 1, color: BRANCH_COLOR },
-    { x: -10, z: 7, w: 8, d: 1, color: BRANCH_COLOR },
-    { x: 10, z: -7, w: 8, d: 1, color: BRANCH_COLOR },
-    { x: 10, z: 7, w: 8, d: 1, color: BRANCH_COLOR },
-    { x: -17, z: -4, w: 1, d: 8, color: SIDE_COLOR },
-    { x: 17, z: -4, w: 1, d: 8, color: SIDE_COLOR },
-    { x: -17, z: 8, w: 1, d: 8, color: SIDE_COLOR },
-    { x: 17, z: 8, w: 1, d: 8, color: SIDE_COLOR },
-    { x: 13, z: 0, w: 1.4, d: 1.4, color: PILLAR_COLOR },
-    { x: -13, z: 0, w: 1.4, d: 1.4, color: PILLAR_COLOR },
-    { x: 0, z: 10, w: 1.4, d: 1.4, color: PILLAR_COLOR },
-    { x: 0, z: -10, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+    [...OUTER_WALLS, ISLAND_SOLID, ...BRANCH_WALLS, ...SIDE_WALLS_NORMAL, ...PILLARS_4],
+    [...OUTER_WALLS, ...ISLAND_TWIN, ...BRANCH_WALLS, ...SIDE_WALLS_NORMAL, ...PILLARS_4],
   ],
   5: [
-    ...OUTER_WALLS,
-    { x: 0, z: 0, w: 10, d: 8, color: ISLAND_COLOR },
-    { x: -10, z: -7, w: 8, d: 1, color: BRANCH_COLOR },
-    { x: -10, z: 7, w: 8, d: 1, color: BRANCH_COLOR },
-    { x: 10, z: -7, w: 8, d: 1, color: BRANCH_COLOR },
-    { x: 10, z: 7, w: 8, d: 1, color: BRANCH_COLOR },
-    // engere Seitenwege als Stufe 3/4 (längere Wände -> schmalere Lücke)
-    { x: -17, z: -4, w: 1, d: 10, color: SIDE_COLOR },
-    { x: 17, z: -4, w: 1, d: 10, color: SIDE_COLOR },
-    { x: -17, z: 8, w: 1, d: 10, color: SIDE_COLOR },
-    { x: 17, z: 8, w: 1, d: 10, color: SIDE_COLOR },
-    { x: 13, z: 0, w: 1.4, d: 1.4, color: PILLAR_COLOR },
-    { x: -13, z: 0, w: 1.4, d: 1.4, color: PILLAR_COLOR },
-    { x: 0, z: 10, w: 1.4, d: 1.4, color: PILLAR_COLOR },
-    { x: 0, z: -10, w: 1.4, d: 1.4, color: PILLAR_COLOR },
-    { x: 6, z: -11, w: 1.4, d: 1.4, color: PILLAR_COLOR },
-    { x: -6, z: 11, w: 1.4, d: 1.4, color: PILLAR_COLOR },
+    [...OUTER_WALLS, ISLAND_SOLID, ...BRANCH_WALLS, ...SIDE_WALLS_TIGHT, ...PILLARS_6],
+    [...OUTER_WALLS, ...ISLAND_TWIN, ...BRANCH_WALLS, ...SIDE_WALLS_TIGHT, ...PILLARS_6],
   ],
 };
 
@@ -257,6 +279,10 @@ function ensureScene() {
   scene.fog = new THREE.Fog(0x0e0d17, 40, 90);
 
   const camera = new THREE.PerspectiveCamera(55, mountEl.clientWidth / mountEl.clientHeight || 1, 0.1, 300);
+  // Feste Kamera statt Follow/Zoom - zeigt immer die komplette Spielfläche
+  // von oben-schräg, damit man beide Autos und die ganze Strecke im Blick hat.
+  camera.position.set(0, 42, 32);
+  camera.lookAt(0, 0, 0);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(mountEl.clientWidth, mountEl.clientHeight);
@@ -450,15 +476,7 @@ function render() {
   car2.position.set(p2.x, 0, p2.z);
   car2.rotation.y = p2.angle;
 
-  // Kamera folgt der Mitte zwischen beiden Autos, zoomt weiter raus, je
-  // weiter sie auseinander sind.
-  const midX = (p1.x + p2.x) / 2;
-  const midZ = (p1.z + p2.z) / 2;
-  const spread = Math.hypot(p1.x - p2.x, p1.z - p2.z);
-  const camHeight = clamp(14 + spread * 0.5, 16, 32);
-  camera.position.lerp(new THREE.Vector3(midX, camHeight, midZ + camHeight * 0.6), 0.06);
-  camera.lookAt(midX, 0, midZ);
-
+  // Kamera bleibt fest (siehe ensureScene) - keine Follow-/Zoom-Logik mehr.
   renderer.render(scene, camera);
 }
 
@@ -482,11 +500,13 @@ function startGame(selection) {
 
   showScreen(playScreen);
   ensureScene();
-  buildTrackMeshes(TRACKS[selection.difficulty.id]);
+  const trackPool = TRACKS[selection.difficulty.id];
+  const walls = trackPool[Math.floor(Math.random() * trackPool.length)];
+  buildTrackMeshes(walls);
 
   state = {
     settings: DIFFICULTY_SETTINGS[selection.difficulty.id],
-    walls: TRACKS[selection.difficulty.id],
+    walls,
     mode: selection.mode.id,
     score: { p1: 0, p2: 0 },
     timeLeft: GAME_DURATION,

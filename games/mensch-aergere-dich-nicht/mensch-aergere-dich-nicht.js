@@ -57,11 +57,14 @@
   const HOME_LEN = 4;
   const PIECES = 4;
 
+  // Reihenfolge = Reihenfolge der Startecken auf dem Brett im Uhrzeigersinn
+  // (oben-rechts, unten-rechts, unten-links, oben-links), wie beim
+  // klassischen Brett. Startspieler (Mensch) ist immer Grün.
   const PLAYER_DEFS = [
-    { color: "red", label: "Rot" },
-    { color: "blue", label: "Blau" },
-    { color: "yellow", label: "Gelb" },
     { color: "green", label: "Grün" },
+    { color: "red", label: "Rot" },
+    { color: "black", label: "Schwarz" },
+    { color: "yellow", label: "Gelb" },
   ];
 
   const setupScreen = document.getElementById("setup-screen");
@@ -315,12 +318,60 @@
   }
 
   // ---- Rendering ----
+  //
+  // Das Brett wird als klassisches Kreuz auf einem 13x13-Raster nachgebaut
+  // (4 Eckboxen à 5x5 Felder, dazwischen 3 Felder breite Arme). Die
+  // Koordinaten unten wurden anhand dieses Rasters von Hand abgeleitet:
+  // RING_CELLS ist die 40 Felder lange gemeinsame Laufstrecke (im
+  // Uhrzeigersinn, Start = Feld 0 direkt neben der grünen Startecke),
+  // HOME_LANE_CELLS je Farbe die 4 Zielfelder von außen nach innen,
+  // START_SLOT_CELLS die 4 Stellplätze in der jeweiligen Startecke.
+  // Die Spiellogik (getValidMoves/applyMove/globalCell) kennt diese
+  // Koordinaten nicht - sie rechnet nur mit abstrakten Schritten - daher
+  // betrifft dieses Layout ausschließlich die Darstellung.
 
-  function polar(angleDeg, radiusPercent) {
-    const rad = ((angleDeg - 90) * Math.PI) / 180;
+  const GRID_N = 13;
+
+  const RING_CELLS = [
+    [0, 7], [1, 7], [2, 7], [3, 7], [4, 7],
+    [5, 8], [5, 9], [5, 10], [5, 11], [5, 12],
+    [7, 12], [7, 11], [7, 10], [7, 9], [7, 8],
+    [8, 7], [9, 7], [10, 7], [11, 7], [12, 7],
+    [12, 5], [11, 5], [10, 5], [9, 5], [8, 5],
+    [7, 4], [7, 3], [7, 2], [7, 1], [7, 0],
+    [5, 0], [5, 1], [5, 2], [5, 3], [5, 4],
+    [4, 5], [3, 5], [2, 5], [1, 5], [0, 5],
+  ];
+
+  // Dekorative Felder an den 4 Armspitzen (verbinden die beiden Ringspuren
+  // optisch, sind aber kein Teil der 40 begehbaren Felder).
+  const CAP_CELLS = [[0, 6], [6, 12], [12, 6], [6, 0]];
+
+  const HOME_LANE_CELLS = {
+    green: [[1, 6], [2, 6], [3, 6], [4, 6]],
+    red: [[6, 11], [6, 10], [6, 9], [6, 8]],
+    black: [[11, 6], [10, 6], [9, 6], [8, 6]],
+    yellow: [[6, 1], [6, 2], [6, 3], [6, 4]],
+  };
+
+  const START_SLOT_CELLS = {
+    green: [[1, 9], [1, 11], [3, 9], [3, 11]],
+    red: [[9, 9], [9, 11], [11, 9], [11, 11]],
+    black: [[9, 1], [9, 3], [11, 1], [11, 3]],
+    yellow: [[1, 1], [1, 3], [3, 1], [3, 3]],
+  };
+
+  const CORNER_BOX_CELLS = {
+    green: { row: 0, col: 8 },
+    red: { row: 8, col: 8 },
+    black: { row: 8, col: 0 },
+    yellow: { row: 0, col: 0 },
+  };
+
+  function gridPos(row, col) {
     return {
-      left: 50 + radiusPercent * Math.cos(rad),
-      top: 50 + radiusPercent * Math.sin(rad),
+      left: ((col + 0.5) / GRID_N) * 100,
+      top: ((row + 0.5) / GRID_N) * 100,
     };
   }
 
@@ -332,38 +383,52 @@
 
   function buildBoardStructure() {
     boardEl.innerHTML = "";
-    const RING_RADIUS = 42;
 
-    // Ringfelder
-    for (let i = 0; i < RING_SIZE; i++) {
-      const { left, top } = polar((360 / RING_SIZE) * i, RING_RADIUS);
+    // Farbige Eckboxen (Startbereiche) im Hintergrund
+    state.players.forEach((player) => {
+      const box = CORNER_BOX_CELLS[player.color];
+      const boxEl = el("div", "mad-corner-box mad-color--" + player.color);
+      boxEl.style.left = (box.col / GRID_N) * 100 + "%";
+      boxEl.style.top = (box.row / GRID_N) * 100 + "%";
+      boxEl.style.width = (5 / GRID_N) * 100 + "%";
+      boxEl.style.height = (5 / GRID_N) * 100 + "%";
+      boardEl.appendChild(boxEl);
+    });
+
+    // Ringfelder (gemeinsame Laufstrecke)
+    RING_CELLS.forEach(([row, col], i) => {
+      const { left, top } = gridPos(row, col);
       const cell = el("div", "mad-cell");
       cell.style.left = left + "%";
       cell.style.top = top + "%";
       cell.dataset.ring = String(i);
       boardEl.appendChild(cell);
-    }
+    });
+
+    // Dekorative Kappen an den Armspitzen
+    CAP_CELLS.forEach(([row, col]) => {
+      const { left, top } = gridPos(row, col);
+      const cell = el("div", "mad-cell");
+      cell.style.left = left + "%";
+      cell.style.top = top + "%";
+      boardEl.appendChild(cell);
+    });
 
     // Zielgeraden + Startplätze pro Spieler
     state.players.forEach((player) => {
-      const entryAngle = (360 / RING_SIZE) * player.entry;
-      for (let k = 0; k < HOME_LEN; k++) {
-        const radius = RING_RADIUS - (k + 1) * (RING_RADIUS / (HOME_LEN + 1.6));
-        const { left, top } = polar(entryAngle, radius);
+      HOME_LANE_CELLS[player.color].forEach(([row, col]) => {
+        const { left, top } = gridPos(row, col);
         const cell = el("div", "mad-cell mad-cell--home mad-color--" + player.color);
         cell.style.left = left + "%";
         cell.style.top = top + "%";
-        cell.style.opacity = "0.35";
         boardEl.appendChild(cell);
-      }
+      });
 
-      const startAngles = [-13, -4.5, 4.5, 13].map((offset) => entryAngle + offset);
-      startAngles.forEach((angle) => {
-        const { left, top } = polar(angle, RING_RADIUS + 9);
+      START_SLOT_CELLS[player.color].forEach(([row, col]) => {
+        const { left, top } = gridPos(row, col);
         const slot = el("div", "mad-start-slot mad-color--" + player.color);
         slot.style.left = left + "%";
         slot.style.top = top + "%";
-        slot.style.background = "transparent";
         boardEl.appendChild(slot);
       });
     });
@@ -374,16 +439,13 @@
   }
 
   function piecePosition(player, steps) {
-    const RING_RADIUS = 42;
     if (steps === -1) return null; // wird separat über Startplätze gerendert
     if (steps <= 39) {
-      const cell = globalCell(player, steps);
-      return polar((360 / RING_SIZE) * cell, RING_RADIUS);
+      const [row, col] = RING_CELLS[globalCell(player, steps)];
+      return gridPos(row, col);
     }
-    const entryAngle = (360 / RING_SIZE) * player.entry;
-    const k = steps - 40;
-    const radius = RING_RADIUS - (k + 1) * (RING_RADIUS / (HOME_LEN + 1.6));
-    return polar(entryAngle, radius);
+    const [row, col] = HOME_LANE_CELLS[player.color][steps - 40];
+    return gridPos(row, col);
   }
 
   function render() {
@@ -400,8 +462,6 @@
 
     state.players.forEach((p) => {
       let startSlotUsed = 0;
-      const entryAngle = (360 / RING_SIZE) * p.entry;
-      const startAngles = [-13, -4.5, 4.5, 13].map((offset) => entryAngle + offset);
 
       p.pieces.forEach((piece, pieceIndex) => {
         const isMovable = p.index === state.currentPlayerIndex && p.isHuman && movablePieceIndices.has(pieceIndex);
@@ -409,8 +469,8 @@
 
         let pos;
         if (piece.steps === -1) {
-          const angle = startAngles[startSlotUsed++];
-          pos = polar(angle, 42 + 9);
+          const [row, col] = START_SLOT_CELLS[p.color][startSlotUsed++];
+          pos = gridPos(row, col);
         } else {
           pos = piecePosition(p, piece.steps);
         }
@@ -452,7 +512,7 @@
   }
 
   function colorHex(color) {
-    return { red: "#dc2626", blue: "#2563eb", yellow: "#eab308", green: "#16a34a" }[color];
+    return { green: "#16a34a", red: "#dc2626", black: "#1f2937", yellow: "#eab308" }[color];
   }
 
   function endGame() {
@@ -498,7 +558,7 @@
   function initSetup() {
     PixelPortGameScreens.renderSetup(setupScreen, {
       gameName: "Mensch-ärgere-dich-nicht",
-      icon: "🔴🔵",
+      icon: "🟢🔴⚫🟡",
       intro: "Wähle Schwierigkeit und Anzahl der Bots, um zu starten.",
       howToPlay: HOW_TO_PLAY,
       modes: MODES,

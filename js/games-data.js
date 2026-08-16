@@ -337,7 +337,7 @@ const GAME_CATEGORIES = [
       {
         id: "mensch-aergere-dich-nicht",
         name: "Mensch-ärgere-dich-nicht",
-        icon: "🔴🔵🟡🟢",
+        icon: "🟢🔴⚫🟡",
         available: true,
         url: "games/mensch-aergere-dich-nicht/index.html",
         howToPlay:

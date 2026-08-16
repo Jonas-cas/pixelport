@@ -5,13 +5,16 @@
  * Ergebnis kommen bereits aus css/game-screens.css + css/game-theme-light.css
  * - hier steht nur das Spielbrett.
  *
- * Das Brett ist als Kreis aufgebaut statt als exaktes Nachbauen des
- * eckigen Kreuz-Bretts: 40 Ringfelder (gemeinsame Laufstrecke), pro
- * Spieler 4 Zielfeld-Zellen, die vom Ring nach innen zur Mitte führen,
- * und 4 Startplätze am Rand - farblich klar den vier Spielern (Rot/
- * Blau/Gelb/Grün) zugeordnet, wie beim echten Brett. Alle Positionen
- * werden per JS in Prozent-Koordinaten gesetzt, damit das Brett auf
- * jeder Bildschirmgröße responsiv skaliert.
+ * Das Brett bildet das klassische eckige Kreuz-Brett nach: ein 13x13-
+ * Raster mit 4 farbigen 5x5-Startecken (Grün/Rot/Schwarz/Gelb) und
+ * dazwischen 3 Felder breiten Armen, die in der Mitte zusammenlaufen.
+ * 40 runde Ringfelder bilden die gemeinsame Laufstrecke, pro Spieler
+ * führen 4 farbige Zielfeld-Zellen mittig in den jeweiligen Arm hinein,
+ * und je 4 Stellplätze in der Startecke nehmen die Figuren vor dem
+ * Start auf. Alle Positionen werden per JS (siehe RING_CELLS &co. in
+ * mensch-aergere-dich-nicht.js) in Prozent-Koordinaten auf diesem
+ * Raster gesetzt, damit das Brett auf jeder Bildschirmgröße responsiv
+ * skaliert, aber quadratisch (samt Kreuzform) bleibt.
  */
 
 .mad-play {
@@ -62,17 +65,24 @@
 
 .mad-board {
   position: relative;
-  width: min(620px, 94vw);
+  width: min(660px, 94vw);
   aspect-ratio: 1;
   background: #fdf6ea;
   border: 4px solid #cbbfa0;
-  border-radius: 50%;
+  border-radius: 22px;
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.mad-corner-box {
+  position: absolute;
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.25);
 }
 
 .mad-cell {
   position: absolute;
-  width: 6.4%;
+  width: 6%;
   aspect-ratio: 1;
   border-radius: 50%;
   background: #fff;
@@ -89,11 +99,12 @@
 
 .mad-start-slot {
   position: absolute;
-  width: 6.8%;
+  width: 6.4%;
   aspect-ratio: 1;
   border-radius: 50%;
-  border: 2.5px dashed;
-  opacity: 0.55;
+  background: #fff;
+  border: 3px solid;
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.15);
   transform: translate(-50%, -50%);
 }
 
@@ -119,16 +130,21 @@
 .mad-piece.is-movable {
   cursor: pointer;
   box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--accent), inset 0 3px 4px rgba(255, 255, 255, 0.35);
+  /* Nur der Glow-Ring pulsiert (box-shadow), nicht die Größe/Position des
+     Steins selbst - eine transform:scale()-Animation auf dem Klick-Ziel
+     lässt seine Bounding-Box nie zur Ruhe kommen, was echte Klicks
+     unzuverlässig macht (Browser wollen für einen Klick i.d.R. ein
+     stabiles Ziel). Deshalb bewusst KEIN transform hier. */
   animation: mad-piece-pulse 1.1s ease-in-out infinite;
 }
 
 @keyframes mad-piece-pulse {
   0%,
   100% {
-    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--accent), inset 0 3px 4px rgba(255, 255, 255, 0.35);
   }
   50% {
-    transform: translate(-50%, -50%) scale(1.12);
+    box-shadow: 0 0 0 3px #fff, 0 0 0 8px var(--accent), inset 0 3px 4px rgba(255, 255, 255, 0.35);
   }
 }
 
@@ -138,24 +154,24 @@
   }
 }
 
+.mad-color--green {
+  background: #16a34a;
+  border-color: #16a34a;
+}
+
 .mad-color--red {
   background: #dc2626;
   border-color: #dc2626;
 }
 
-.mad-color--blue {
-  background: #2563eb;
-  border-color: #2563eb;
+.mad-color--black {
+  background: #1f2937;
+  border-color: #1f2937;
 }
 
 .mad-color--yellow {
   background: #eab308;
   border-color: #eab308;
-}
-
-.mad-color--green {
-  background: #16a34a;
-  border-color: #16a34a;
 }
 
 .mad-actions {

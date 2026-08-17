@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Highspeed-Rundkurs – PixelPort</title>
+
+  <script src="../../js/theme.js"></script>
+
+  <link rel="stylesheet" href="../../css/themes.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/game-screens.css" />
+  <link rel="stylesheet" href="highspeed-rundkurs.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="../../category.html?id=3d">← 3D</a>
+    <a class="icon-button" href="../../settings.html" aria-label="Einstellungen" title="Einstellungen">⚙️</a>
+  </header>
+
+  <main class="page game-page">
+    <section class="page-intro">
+      <h1>🏎️🏁 Highspeed-Rundkurs</h1>
+    </section>
+
+    <div class="game-root">
+      <!-- Vorbildschirm: Schwierigkeit, wird von game-screens.js befüllt -->
+      <section id="setup-screen" class="game-screen"></section>
+
+      <!-- Eigentliches Spiel -->
+      <section id="play-screen" class="game-screen" hidden>
+        <div class="game-hud">
+          <span id="hr-lap" class="hr-badge hr-badge--lap">Runde 1</span>
+          <span id="hr-speed" class="hr-badge hr-badge--speed">0 km/h</span>
+        </div>
+        <div id="hr-mount" class="hr-mount">
+          <span id="hr-offroad" class="hr-offroad" hidden>Abseits der Strecke!</span>
+        </div>
+        <p id="game-hint" class="game-hint"></p>
+      </section>
+
+      <!-- Ergebnis-Bildschirm (wird bei diesem freien Rundkurs-Fahren nicht genutzt) -->
+      <section id="result-screen" class="game-screen" hidden></section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <a class="back-link" href="../../category.html?id=3d">← Zurück zu 3D</a>
+  </footer>
+
+  <script src="../../js/game-screens.js"></script>
+  <script type="module" src="highspeed-rundkurs.js"></script>
+</body>
+</html>

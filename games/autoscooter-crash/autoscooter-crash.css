@@ -7,7 +7,7 @@
  * bleibt bewusst dunkel/atmosphärisch (kein helles Theme eingebunden).
  */
 
-#play-screen {
+#play-screen:not([hidden]) {
   display: flex;
   flex-direction: column;
   align-items: center;

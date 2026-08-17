@@ -371,6 +371,16 @@ const GAME_CATEGORIES = [
         howToPlay:
           "Zwei Autoscooter krachen auf einer 3D-Strecke mit Rundkurs und Abzweigungen ineinander. Spieler 1 steuert mit WASD, Spieler 2 mit den Pfeiltasten. Bei einem Zusammenstoß bekommt das Auto mit der höheren Geschwindigkeit einen Punkt. Nach 150 Sekunden gewinnt, wer mehr Punkte gesammelt hat.",
       },
+      {
+        id: "highspeed-rundkurs",
+        name: "Highspeed-Rundkurs",
+        icon: "🏎️🏁",
+        available: true,
+        isNew: true,
+        url: "games/highspeed-rundkurs/index.html",
+        howToPlay:
+          "Fahr auf einem großen Rundkurs mit Kurven - W/Pfeil-hoch für Gas, S/Pfeil-runter zum Bremsen, A/D bzw. Pfeil-links/-rechts zum Lenken. Leertaste hält einen Drift, E löst einen kurzen Geschwindigkeits-Boost aus. Bäume stoppen dein Auto, abseits der Strecke gibt es nur einen Hinweis ohne Tempo-Verlust. Es gibt zwei weitere kleine Strecken zum Erkunden.",
+      },
     ],
   },
 ];

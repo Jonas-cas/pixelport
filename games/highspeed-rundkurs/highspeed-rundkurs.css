@@ -1,0 +1,78 @@
+/**
+ * highspeed-rundkurs.css
+ *
+ * Spielspezifische Styles für Highspeed-Rundkurs. Vorbildschirm kommt
+ * bereits aus css/game-screens.css - hier steht nur die HUD-Leiste und
+ * der Mount-Container für den Three.js-Renderer. Die 3D-Szene selbst
+ * bleibt bewusst hell/freundlich (blauer Himmel, grüne Wiese) statt dem
+ * dunklen Look der Duell-/1990er-Kategorien - kein helles Karten-Panel-
+ * Theme (css/game-theme-light.css) nötig, die Szene bringt ihren eigenen
+ * Look schon mit.
+ */
+
+#play-screen:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.hr-badge {
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-weight: 800;
+}
+
+.hr-badge--lap {
+  background: #4fe8b8;
+  color: #0e0d17;
+}
+
+.hr-badge--speed {
+  background: #4fb8ff;
+  color: #0e0d17;
+  transition: background-color 0.2s ease;
+}
+
+.hr-badge--speed.is-offroad {
+  background: #ff5f7a;
+}
+
+.hr-mount {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  aspect-ratio: 16 / 9;
+  background: #7ec8f0;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.hr-mount canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hr-offroad {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff5f7a;
+  color: #fff;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+@media (max-width: 480px) {
+  .hr-badge {
+    padding: 5px 12px;
+    font-size: 0.9rem;
+  }
+}
